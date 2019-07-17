@@ -14,7 +14,6 @@ from keras.callbacks import ModelCheckpoint
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from PIL import Image
-import os
 
 from keras.engine.topology import Layer
 from keras.layers import Dense, Dropout, Activation, Flatten, BatchNormalization
