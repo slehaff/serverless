@@ -40,6 +40,7 @@ def cropme():
         slice = normalize_image(slice)
         slice = slice.crop((0, 0, 64, 64))
         slice.save(path + 'inp2/'+f)
+        print(path+'inp2/'+f)
         slice = Image.open(path + 'out/'+f)
         slice = normalize_image(slice)
         slice = slice.crop((0, 0, 64, 64))
