@@ -53,6 +53,7 @@ def to_array(folder_path, array, file_count):
         img = normalize_image255(img)
         inp_img = make_grayscale(img)
         array.append(inp_img)
+        print(i)
     return
 
 
@@ -60,8 +61,10 @@ def to_array(folder_path, array, file_count):
 input_images = []
 output_images = []
 
-to_array('inp/', input_images, 160)
-to_array('out/', output_images, 160)
+to_array('fringeA/', input_images, 125)
+print('fringeA')
+to_array('gray/', output_images, 125)
+print('gray')
 
 
 # Expand the image dimension to conform with the shape required by keras and tensorflow, inputshape=(..., h, w, nchannels).
