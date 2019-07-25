@@ -73,8 +73,8 @@ print("input shape: {}".format(input_images.shape))
 print("output shape: {}".format(output_images.shape))
 print(len(input_images))
 
-input_height = 64
-input_width = 64
+input_height = 170
+input_width = 170
 
 input_image = Input(shape=(input_height, input_width, 1))
 
@@ -214,7 +214,7 @@ img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
 combotot = combImages(inp_img, inp_img, inp_img)
-for i in range(0, 160, 1):
+for i in range(0, 125, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
     myfile = 'inp/' + str(i)+'.png'
@@ -228,6 +228,6 @@ for i in range(0, 160, 1):
     out_img = make_grayscale(img)
     combo = DB_predict(i, inp_img, out_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnnres0-160-model250+50-adam-noBN.h5')
-cv2.imwrite('validate/'+'cnnres0-160-250+50-adam-noBN.png',
+model.save('models/cnnres0-125-model100+0-adam-noBN.h5')
+cv2.imwrite('validate/'+'cnnres0-125-100+0-adam-noBN.png',
             (1.0*combotot).astype(np.uint8))
