@@ -17,12 +17,12 @@ def brighten(folder):
     img.save(path + folder + '/b1denom.png')
 
 
-brighten('teeth1')
-brighten('teeth2')
-brighten('teeth3')
-brighten('teeth4')
-brighten('teeth5')
-brighten('teeth6')
+# brighten('teeth1')
+# brighten('teeth2')
+# brighten('teeth3')
+# brighten('teeth4')
+# brighten('teeth5')
+# brighten('teeth6')
 
 
 def tweekshadow(input):
@@ -47,9 +47,9 @@ def equalizeImg(folder):
     cv2.imwrite(path + folder + '/b1denom.png', equ)
 
 
-equalizeImg('teeth1')
-equalizeImg('teeth2')
-equalizeImg('teeth3')
-equalizeImg('teeth4')
-equalizeImg('teeth5')
-equalizeImg('teeth6')
+# equalizeImg('teeth1')
+# equalizeImg('teeth2')
+# equalizeImg('teeth3')
+# equalizeImg('teeth4')
+# equalizeImg('teeth5')
+# equalizeImg('teeth6')

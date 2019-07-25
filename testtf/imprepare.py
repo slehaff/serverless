@@ -1,4 +1,8 @@
 from PIL import Image
+from enhance import *
+
+
+indexarray= [[103,0],[271,10],[410,20],[103,137],[271,137],[410,137],[103,412], [271,271], [410,281]]
 
 
 def imslice(imgpath, destfolder, offset, istart, iend, jstart, jend):
@@ -14,8 +18,21 @@ def imslice(imgpath, destfolder, offset, istart, iend, jstart, jend):
             n += 1
     return
 
+def im2slice(imgpath, destfolder, offset, winindex):
+    img = Image.open(imgpath)
+    n = offset
+    for i in range(len(winindex)):
+        slice = img.crop((winindex[i][0], winindex[i][1], winindex[i][0]+170, winindex[i][1]+170))
+        slice.save(destfolder + str(n) + '.png')
+        if i == 6:
+            print(winindex[i][0], winindex[i][1], winindex[i][0]+170, winindex[i][1]+170)
+        n+=1
 
-def folderLoad(offset, folder,):
+    return
+
+
+
+def folderLoad(offset, folder):
     imgpath1 = './testtf/data/' + folder + '/image3.png'
     destfolder1 = 'fringeA/'
     imgpath2 = './testtf/data/' + folder + '/gray.png'
@@ -34,22 +51,63 @@ def folderLoad(offset, folder,):
     imslice(imgpath4, destfolder4, offset, istart, iend, jstart, jend)
 
 
+def folder2load(offset, folder, winindex):
+    imgpath1 = './testtf/data/' + folder + '/image3.png'
+    destfolder1 = 'fringeA/'
+    imgpath2 = './testtf/data/' + folder + '/gray.png'
+    destfolder2 = 'gray/'
+    imgpath3 = './testtf/data/' + folder + '/b1nom.png'
+    destfolder3 = 'nom/'
+    imgpath4 = './testtf/data/' + folder + '/b1denom.png'
+    destfolder4 = 'denom/'
+    im2slice(imgpath1, destfolder1, offset, winindex)
+    im2slice(imgpath2, destfolder2, offset, winindex)
+    im2slice(imgpath3, destfolder3, offset, winindex)
+    im2slice(imgpath4, destfolder4, offset, winindex)
+
+
+
+
 def makegray(folder):
     img = Image.open('./testtf/data/' + folder + '/image1.png').convert('L')
     img.save('./testtf/data/' + folder + '/gray.png')
 
 
-makegray('teeth1')
-makegray('teeth2')
-makegray('teeth3')
-makegray('teeth4')
-makegray('teeth5')
-makegray('teeth6')
+# makegray('teeth1')
+# makegray('teeth2')
+# makegray('teeth3')
+# makegray('teeth4')
+# makegray('teeth5')
+# makegray('teeth6')
 
 
-folderLoad(0, 'teeth1')
-folderLoad(35, 'teeth2')
-folderLoad(70, 'teeth3')
-folderLoad(105, 'teeth4')
-folderLoad(140, 'teeth5')
-folderLoad(175, 'teeth6')
+# folderLoad(0, 'teeth1')
+# folderLoad(35, 'teeth2')
+# folderLoad(70, 'teeth3')
+# folderLoad(105, 'teeth4')
+# folderLoad(140, 'teeth5')
+# folderLoad(175, 'teeth6')
+
+def make(foldername, offset):
+    brighten(foldername)
+    equalizeImg(foldername)
+    makegray(foldername)
+    folder2load(offset, foldername, indexarray)
+
+
+make('v21', 0)
+make('v22', 9)
+make('v23', 18)
+make('v24', 27)
+make('v25', 36)
+make('v26', 45)
+make('v27', 56)
+make('v28', 63)
+make('v29', 72)
+make('v211', 81)
+make('v212', 90)
+make('v213', 99)
+make('v214', 108)
+make('v215', 117)
+
+    
