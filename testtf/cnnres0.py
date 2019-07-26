@@ -48,6 +48,7 @@ def normalize_image(img):
 
 def to_array(folder_path, array, file_count):
     for i in range(0, file_count, 1):
+        print(i)
         myfile = folder_path + str(i)+'.png'
         img = cv2.imread(myfile).astype(np.float32)
         img = normalize_image255(img)
@@ -61,9 +62,9 @@ def to_array(folder_path, array, file_count):
 input_images = []
 output_images = []
 
-to_array('fringeA/', input_images, 125)
+to_array('fringeA/', input_images, 350)
 print('fringeA')
-to_array('gray/', output_images, 125)
+to_array('gray/', output_images, 350)
 print('gray')
 
 
@@ -139,7 +140,7 @@ def compile_model(model):
     return(model)
 
 
-number_of_epochs = 300
+number_of_epochs = 200
 loss = []
 val_loss = []
 convweights = []
@@ -217,7 +218,7 @@ img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
 combotot = combImages(inp_img, inp_img, inp_img)
-for i in range(0, 125, 1):
+for i in range(0, 180, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
     myfile = 'fringeA/' + str(i)+'.png'
@@ -231,6 +232,6 @@ for i in range(0, 125, 1):
     out_img = make_grayscale(img)
     combo = DB_predict(i, inp_img, out_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnnres0-125-model300+0-adam-noBN.h5')
-cv2.imwrite('validate/'+'cnnres0-125-300+0-adam-noBN.png',
+model.save('models/cnnres01-350-model100+0-adam-noBN.h5')
+cv2.imwrite('validate/'+'cnnres01-350-200+0-adam-noBN.png',
             (1.0*combotot).astype(np.uint8))

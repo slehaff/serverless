@@ -15,8 +15,8 @@ from keras.layers import Dense, Dropout, Activation, Flatten, BatchNormalization
 from keras.layers import Conv2D, MaxPooling2D, Add, UpSampling2D, concatenate, Concatenate, AveragePooling2D
 from keras.utils import plot_model
 
-number_of_epochs = 141
-IMAGECOUNT = 125
+number_of_epochs = 100
+IMAGECOUNT = 349
 
 
 def make_grayscale(img):
@@ -281,7 +281,7 @@ img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
 combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
-for i in range(0, IMAGECOUNT, 1):
+for i in range(0, 180, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
     myfile = 'fringeA/' + str(i)+'.png'
@@ -304,6 +304,6 @@ for i in range(0, IMAGECOUNT, 1):
     denom_img = make_grayscale(img)
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-125-141.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-125-141.png',
+model.save('models/cnn2a-bmodel-shd-350-50.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-350-50.png',
             (1.0*combotot).astype(np.uint8))
