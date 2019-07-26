@@ -16,7 +16,7 @@ from keras.layers import Conv2D, MaxPooling2D, Add, UpSampling2D, concatenate, C
 from keras.utils import plot_model
 
 number_of_epochs = 141
-IMAGECOUNT = 200
+IMAGECOUNT = 125
 
 
 def make_grayscale(img):
@@ -55,13 +55,13 @@ nom_images = []
 denom_images = []
 
 to_array('fringeA/', fringe_images, IMAGECOUNT)
-to_array('predictout/', background_images, IMAGECOUNT)
+to_array('gray/', background_images, IMAGECOUNT)
 to_array('nom/', nom_images, IMAGECOUNT)
 to_array('denom/', denom_images, IMAGECOUNT)
 
 
-input_height = 64
-input_width = 64
+input_height = 170
+input_width = 170
 
 
 # Expand the image dimension to conform with the shape required by keras and tensorflow, inputshape=(..., h, w, nchannels).
@@ -288,7 +288,7 @@ for i in range(0, IMAGECOUNT, 1):
     img = cv2.imread(myfile).astype(np.float32)
     img = normalize_image255(img)
     inp_1 = make_grayscale(img)
-    myfile = 'predictout/' + str(i)+'.png'
+    myfile = 'gray/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     img = normalize_image255(img)
     inp_2 = make_grayscale(img)
@@ -304,6 +304,6 @@ for i in range(0, IMAGECOUNT, 1):
     denom_img = make_grayscale(img)
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-200-141.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-200-141.png',
+model.save('models/cnn2a-bmodel-shd-125-141.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-125-141.png',
             (1.0*combotot).astype(np.uint8))
