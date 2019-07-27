@@ -212,7 +212,7 @@ plot_model(cnn2_model, show_shapes=True, to_file='models/cnn2_model.png')
 
 
 def load_model():
-    model = keras.models.load_model('models/cnn2a-bmodel-shd-200-100.h5')
+    model = keras.models.load_model('models/cnn2a-bmodel-shd-350-50.h5')
     model.summary()
     return(model)
 
@@ -281,7 +281,7 @@ img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
 combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
-for i in range(0, 180, 1):
+for i in range(100, 280, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
     myfile = 'fringeA/' + str(i)+'.png'
@@ -304,6 +304,6 @@ for i in range(0, 180, 1):
     denom_img = make_grayscale(img)
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-350-50.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-350-50.png',
+model.save('models/cnn2a-bmodel-shd-350-102.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-350-102.png',
             (1.0*combotot).astype(np.uint8))

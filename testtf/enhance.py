@@ -30,17 +30,19 @@ def tweekshadow(input):
         for j in range(0, 640):
             if input[i, j] < 10:
                 input[i, j] = 20
+            if input[i,j] > 225:
+                input[i, j] = 225
     return(input)
 
 
 def equalizeImg(folder):
     path = './testtf/data/'
-    filename = path + folder + '/1nom.png'
+    filename = path + folder + '/b1nom.png'
     img = cv2.imread(filename, 0)
     equ = cv2.equalizeHist(img)
     equ = tweekshadow(equ)
     cv2.imwrite(path + folder + '/b1nom.png', equ)
-    filename = path + folder + '/1denom.png'
+    filename = path + folder + '/b1denom.png'
     img = cv2.imread(filename, 0)
     equ = cv2.equalizeHist(img)
     equ = tweekshadow(equ)
