@@ -89,7 +89,7 @@ def makegray(folder):
 # folderLoad(175, 'teeth6')
 
 def make(foldername, offset):
-    brighten(foldername)
+    brighter(foldername)
     equalizeImg(foldername)
     makegray(foldername)
     folder2load(offset, foldername, indexarray)

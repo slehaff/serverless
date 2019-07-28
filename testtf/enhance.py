@@ -3,7 +3,7 @@ from PIL import ImageEnhance
 import cv2
 
 
-def brighten(folder):
+def brighter(folder):
     path = './testtf/data/'
     filename = path + folder + '/1nom.png'
     img = Image.open(filename)
@@ -28,10 +28,10 @@ def brighten(folder):
 def tweekshadow(input):
     for i in range(0, 480):
         for j in range(0, 640):
-            if input[i, j] < 10:
-                input[i, j] = 20
-            if input[i,j] > 225:
-                input[i, j] = 225
+            if input[i, j] < 30:
+                input[i, j] = 30
+            if input[i,j] > 200:
+                input[i, j] = 200
     return(input)
 
 
