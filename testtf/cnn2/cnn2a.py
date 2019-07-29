@@ -264,8 +264,8 @@ def DB_predict(i, x1, x2, y1, y2):
         [np.array([np.expand_dims(x1, -1)]), np.array([np.expand_dims(x2, -1)])])
     predicted_img[0] = predicted_img[0].squeeze()
     predicted_img[1] = predicted_img[1].squeeze()
-    # wrap = nn_wrap(predicted_img[0], predicted_img[1])
-    wrap = nn_wrap(y1, y2)    
+    # wrap = nn_wrap(predicted_img[0], predicted_img[1]) # use prediction output
+    wrap = nn_wrap(y1, y2) # Use scanning output   
     # cv2.imwrite('validate/'+str(i)+'filteredSync.png',
     #             (255.0*predicted_img[0]).astype(np.uint8))
     # cv2.imwrite('validate/'+str(i)+'input.png',

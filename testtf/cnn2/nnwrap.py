@@ -6,7 +6,8 @@ import time
 
 rwidth = 170
 rheight = 170
-
+fullwidth = 640
+fullheight = 480
 
 def sqdist(v1, v2):
     d = v1-v2
@@ -14,27 +15,6 @@ def sqdist(v1, v2):
 
 
 
-
-def get_A(im_arr):
-    A = np.zeros((rwidth, rheight), dtype=np.float)
-    for i in range(3):
-        A = np.sum(A, im_arr[i])
-    A = np.divide(A, 3)
-    return A
-
-
-def get_B(im_arr):
-    for i in range(im_arr.length):
-        B = np.multiply(im_arr[i], (np.sin(2*np.pi * i / im_arr.length)))
-
-    return B
-
-
-def get_average(array, n):
-    b = np.add(array[0], array[1])
-    average = 1/n * np.add(b, array[2])
-    print('average size =', average.shape)
-    return average
 
 
 
@@ -44,7 +24,7 @@ def nn_wrap(nom, denom):
  
     for i in range(rheight):
         for j in range(rwidth):
-            wrap[i, j] = np.arctan2(1.7320508 * nom[i, j], denom[i, j])
+            wrap[i, j] = np.arctan2(1.7320508 *nom[i, j], denom[i, j])
             if wrap[i, j] < 0:
                 if nom[i, j] < 0:
                     wrap[i, j] += 2*np.pi
@@ -52,6 +32,44 @@ def nn_wrap(nom, denom):
                     wrap[i, j] += 1 * np.pi
             im_wrap[i, j] = 128/np.pi * wrap[i, j]
 
-    # wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
-    # im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
+    wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
+    im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
     return(im_wrap)
+
+
+
+
+def nn2_wrap(nom, denom):
+    image = cv2.imread(nom)
+    greynom = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = cv2.imread(denom)
+    greydenom = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    wrap = np.zeros((rheight, rwidth), dtype=np.float)
+    im_wrap = np.zeros((rheight, rwidth), dtype=np.float)
+ 
+    for i in range(rheight):
+        for j in range(rwidth):
+            wrap[i, j] = np.arctan2(1.7320508 *greynom[i, j], greydenom[i, j])
+            if wrap[i, j] < 0:
+                if nom[i, j] < 0:
+                    wrap[i, j] += 2*np.pi
+                else:
+                    wrap[i, j] += 1 * np.pi
+            im_wrap[i, j] = 128/np.pi * wrap[i, j]
+
+    wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
+    im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
+    return(im_wrap)
+
+
+
+def testarctan(folder):
+    nominator = folder + 'v22/b1nom.png'
+    denominator = folder + 'v22/b1denom.png'
+    test_im_wrap = nn2_wrap(nominator, denominator)
+    png_file = folder + 'b22_im_wrap.png'
+    cv2.imwrite(png_file, test_im_wrap)
+
+
+folder = '/home/samir/serverless/testtf/data/' 
+testarctan(folder)
