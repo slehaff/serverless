@@ -17,7 +17,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 20
+number_of_epochs = 50
 IMAGECOUNT = 349
 
 
@@ -219,7 +219,7 @@ def load_model():
     return(model)
 
 
-model = load_model()
+# model = load_model()
 
 
 def fct_train():
@@ -234,7 +234,7 @@ def fct_train():
         # convweights.append(model.layers[0].get_weights()[0].squeeze())
 
 
-# fct_train()
+fct_train()
 
 
 def plot():
@@ -309,6 +309,6 @@ for i in range(100, 280, 1):
 
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-350-24.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-350-24-0.png',
+model.save('models/cnn2a-bmodel-shd-350-50.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-350-50-0.png',
             (1.0*combotot).astype(np.uint8))
