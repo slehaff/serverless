@@ -1,5 +1,6 @@
 from PIL import Image
 from enhance import *
+import numpy as np
 
 
 indexarray= [[103,0],[271,10],[410,20],[103,137],[271,137],[410,137],[103,412], [271,271], [410,281]]
@@ -24,31 +25,31 @@ def im2slice(imgpath, destfolder, offset, winindex):
     for i in range(len(winindex)):
         slice = img.crop((winindex[i][0], winindex[i][1], winindex[i][0]+170, winindex[i][1]+170))
         slice.save(destfolder + str(n) + '.png')
-        if i == 6:
-            print(winindex[i][0], winindex[i][1], winindex[i][0]+170, winindex[i][1]+170)
-        n+=1
 
     return
 
-
-
-def folderLoad(offset, folder):
-    imgpath1 = './testtf/data/' + folder + '/image3.png'
-    destfolder1 = 'fringeA/'
-    imgpath2 = './testtf/data/' + folder + '/gray.png'
-    destfolder2 = 'gray/'
-    imgpath3 = './testtf/data/' + folder + '/b1nom.png'
-    destfolder3 = 'nom/'
-    imgpath4 = './testtf/data/' + folder + '/b1denom.png'
-    destfolder4 = 'denom/'
-    istart = 2
-    iend = 9
-    jstart = 1
-    jend = 6
-    imslice(imgpath1, destfolder1, offset, istart, iend, jstart, jend)
-    imslice(imgpath2, destfolder2, offset, istart, iend, jstart, jend)
-    imslice(imgpath3, destfolder3, offset, istart, iend, jstart, jend)
-    imslice(imgpath4, destfolder4, offset, istart, iend, jstart, jend)
+def npy2slice(imgpath, destfolder, offset, winindex):
+    img = np.load(imgpath)
+    for i in range(len(winindex)):
+        slice = img[winindex[i][1]:winindex[i][1]+170, winindex[i][0]:winindex[i][0]+170]
+        slice.save(destfolder + str(n) + '.npy')
+# def folderLoad(offset, folder):
+#     imgpath1 = './testtf/data/' + folder + '/image3.png'
+#     destfolder1 = 'fringeA/'
+#     imgpath2 = './testtf/data/' + folder + '/gray.png'
+#     destfolder2 = 'gray/'
+#     imgpath3 = './testtf/data/' + folder + '/b1nom.png'
+#     destfolder3 = 'nom/'
+#     imgpath4 = './testtf/data/' + folder + '/b1denom.png'
+#     destfolder4 = 'denom/'
+#     istart = 2
+#     iend = 9
+#     jstart = 1
+#     jend = 6
+#     imslice(imgpath1, destfolder1, offset, istart, iend, jstart, jend)
+#     imslice(imgpath2, destfolder2, offset, istart, iend, jstart, jend)
+#     imslice(imgpath3, destfolder3, offset, istart, iend, jstart, jend)
+#     imslice(imgpath4, destfolder4, offset, istart, iend, jstart, jend)
 
 
 def folder2load(offset, folder, winindex):
@@ -56,29 +57,40 @@ def folder2load(offset, folder, winindex):
     destfolder1 = 'fringeA/'
     imgpath2 = './testtf/data/' + folder + '/gray.png'
     destfolder2 = 'gray/'
-    imgpath3 = './testtf/data/' + folder + '/b1nom.png'
+    imgpath3 = './testtf/data/' + folder + '/b1nom.npy'
     destfolder3 = 'nom/'
-    imgpath4 = './testtf/data/' + folder + '/b1denom.png'
+    imgpath4 = './testtf/data/' + folder + '/b1denom.npy'
     destfolder4 = 'denom/'
     im2slice(imgpath1, destfolder1, offset, winindex)
     im2slice(imgpath2, destfolder2, offset, winindex)
-    im2slice(imgpath3, destfolder3, offset, winindex)
-    im2slice(imgpath4, destfolder4, offset, winindex)
+    npy2slice(imgpath3, destfolder3, offset, winindex)
+    npy2slice(imgpath4, destfolder4, offset, winindex)
 
 
 
 
 def makegray(folder):
-    img = Image.open('./testtf/data/' + folder + '/image1.png').convert('L')
-    img.save('./testtf/data/' + folder + '/gray.png')
+    img = Image.open('./testtf/data/train/' + folder + '/image1.png').convert('L')
+    img.save('./testtf/data/train/' + folder + '/gray.png')
 
 
-# makegray('teeth1')
-# makegray('teeth2')
-# makegray('teeth3')
-# makegray('teeth4')
-# makegray('teeth5')
-# makegray('teeth6')
+makegray('train/1scan_im_folder')
+makegray('train/2scan_im_folder')
+makegray('train/3scan_im_folder')
+makegray('train/4scan_im_folder')
+makegray('train/5scan_im_folder')
+makegray('train/6scan_im_folder')
+makegray('train/7scan_im_folder')
+makegray('train/8scan_im_folder')
+makegray('train/9scan_im_folder')
+makegray('train/10scan_im_folder')
+makegray('train/11scan_im_folder')
+makegray('train/12scan_im_folder')
+makegray('train/13scan_im_folder')
+makegray('train/14scan_im_folder')
+makegray('train/15scan_im_folder')
+makegray('train/16scan_im_folder')
+makegray('train/17scan_im_folder')
 
 
 # folderLoad(0, 'teeth1')
@@ -89,8 +101,8 @@ def makegray(folder):
 # folderLoad(175, 'teeth6')
 
 def make(foldername, offset):
-    brighter(foldername)
-    equalizeImg(foldername)
+    # brighter(foldername)
+    # equalizeImg(foldername)
     makegray(foldername)
     folder2load(offset, foldername, indexarray)
 
@@ -134,6 +146,25 @@ def make(foldername, offset):
 # make('train/22scan_im_folder', 9*36)
 # make('train/23scan_im_folder', 9*37)
 # make('train/24scan_im_folder', 9*38)
+
+make('train/1scan_im_folder', 9*0)
+make('train/2scan_im_folder', 9*1)
+make('train/3scan_im_folder', 9*2)
+make('train/4scan_im_folder', 9*3)
+make('train/5scan_im_folder', 9*4)
+make('train/6scan_im_folder', 9*5)
+make('train/7scan_im_folder', 9*6)
+make('train/8scan_im_folder', 9*7)
+make('train/9scan_im_folder', 9*8)
+make('train/10scan_im_folder', 9*9)
+make('train/11scan_im_folder', 9*10)
+make('train/12scan_im_folder', 9*11)
+make('train/13scan_im_folder', 9*12)
+make('train/14scan_im_folder', 9*13)
+make('train/15scan_im_folder', 9*14)
+make('train/16scan_im_folder', 9*15)
+make('train/17scan_im_folder', 9*16)
+make('train/18scan_im_folder', 9*17)
 
 
     
