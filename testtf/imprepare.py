@@ -13,9 +13,9 @@ def imslice(imgpath, destfolder, offset, istart, iend, jstart, jend):
     out_width = 64
     for i in range(istart, iend):
         for j in range(jstart, jend):
-            slice = img.crop((i*out_width, j*out_height, i *
+            myslice = img.crop((i*out_width, j*out_height, i *
                               out_width+64, j*out_height+64))
-            slice.save(destfolder + str(n) + '.png')
+            myslice.save(destfolder + str(n) + '.png')
             n += 1
     return
 
@@ -23,16 +23,23 @@ def im2slice(imgpath, destfolder, offset, winindex):
     img = Image.open(imgpath)
     n = offset
     for i in range(len(winindex)):
-        slice = img.crop((winindex[i][0], winindex[i][1], winindex[i][0]+170, winindex[i][1]+170))
-        slice.save(destfolder + str(n) + '.png')
+        myslice = img.crop((winindex[i][0], winindex[i][1], winindex[i][0]+170, winindex[i][1]+170))
+        myslice.save(destfolder + str(n) + '.png')
+        n += 1
 
     return
 
 def npy2slice(imgpath, destfolder, offset, winindex):
+    n =  offset
     img = np.load(imgpath)
     for i in range(len(winindex)):
-        slice = img[winindex[i][1]:winindex[i][1]+170, winindex[i][0]:winindex[i][0]+170]
-        slice.save(destfolder + str(n) + '.npy')
+        myslice = img[winindex[i][1]:winindex[i][1]+170, winindex[i][0]:winindex[i][0]+170]
+        np.save(destfolder + str(n) + '.npy', myslice, allow_pickle=False)
+        n += 1
+
+
+
+
 # def folderLoad(offset, folder):
 #     imgpath1 = './testtf/data/' + folder + '/image3.png'
 #     destfolder1 = 'fringeA/'
@@ -57,9 +64,9 @@ def folder2load(offset, folder, winindex):
     destfolder1 = 'fringeA/'
     imgpath2 = './testtf/data/' + folder + '/gray.png'
     destfolder2 = 'gray/'
-    imgpath3 = './testtf/data/' + folder + '/b1nom.npy'
+    imgpath3 = './testtf/data/' + folder + '/1nom.npy'
     destfolder3 = 'nom/'
-    imgpath4 = './testtf/data/' + folder + '/b1denom.npy'
+    imgpath4 = './testtf/data/' + folder + '/1denom.npy'
     destfolder4 = 'denom/'
     im2slice(imgpath1, destfolder1, offset, winindex)
     im2slice(imgpath2, destfolder2, offset, winindex)
@@ -70,27 +77,27 @@ def folder2load(offset, folder, winindex):
 
 
 def makegray(folder):
-    img = Image.open('./testtf/data/train/' + folder + '/image1.png').convert('L')
-    img.save('./testtf/data/train/' + folder + '/gray.png')
+    img = Image.open('./testtf/data/' + folder + '/image1.png').convert('L')
+    img.save('./testtf/data/' + folder + '/gray.png')
 
 
-makegray('train/1scan_im_folder')
-makegray('train/2scan_im_folder')
-makegray('train/3scan_im_folder')
-makegray('train/4scan_im_folder')
-makegray('train/5scan_im_folder')
-makegray('train/6scan_im_folder')
-makegray('train/7scan_im_folder')
-makegray('train/8scan_im_folder')
-makegray('train/9scan_im_folder')
-makegray('train/10scan_im_folder')
-makegray('train/11scan_im_folder')
-makegray('train/12scan_im_folder')
-makegray('train/13scan_im_folder')
-makegray('train/14scan_im_folder')
-makegray('train/15scan_im_folder')
-makegray('train/16scan_im_folder')
-makegray('train/17scan_im_folder')
+# makegray('train/1scan_im_folder')
+# makegray('train/2scan_im_folder')
+# makegray('train/3scan_im_folder')
+# makegray('train/4scan_im_folder')
+# makegray('train/5scan_im_folder')
+# makegray('train/6scan_im_folder')
+# makegray('train/7scan_im_folder')
+# makegray('train/8scan_im_folder')
+# makegray('train/9scan_im_folder')
+# makegray('train/10scan_im_folder')
+# makegray('train/11scan_im_folder')
+# makegray('train/12scan_im_folder')
+# makegray('train/13scan_im_folder')
+# makegray('train/14scan_im_folder')
+# makegray('train/15scan_im_folder')
+# makegray('train/16scan_im_folder')
+# makegray('train/17scan_im_folder')
 
 
 # folderLoad(0, 'teeth1')
@@ -103,7 +110,7 @@ makegray('train/17scan_im_folder')
 def make(foldername, offset):
     # brighter(foldername)
     # equalizeImg(foldername)
-    makegray(foldername)
+    # makegray(foldername)
     folder2load(offset, foldername, indexarray)
 
 
@@ -164,7 +171,6 @@ make('train/14scan_im_folder', 9*13)
 make('train/15scan_im_folder', 9*14)
 make('train/16scan_im_folder', 9*15)
 make('train/17scan_im_folder', 9*16)
-make('train/18scan_im_folder', 9*17)
 
 
     
