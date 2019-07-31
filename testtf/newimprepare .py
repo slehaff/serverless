@@ -71,6 +71,8 @@ def folder2load(offset, folder, winindex):
     destfolder4 = 'newdenom/'
     im2slice(imgpath1, destfolder1, offset, winindex)
     im2slice(imgpath2, destfolder2, offset, winindex)
+#     im2slice(imgpath3, destfolder3, offset, winindex)
+#     im2slice(imgpath4, destfolder4, offset, winindex)
     npy2slice(imgpath3, destfolder3, offset, winindex)
     npy2slice(imgpath4, destfolder4, offset, winindex)
 

@@ -17,7 +17,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 50
+number_of_epochs = 5
 IMAGECOUNT = 150
 
 
@@ -110,18 +110,22 @@ A7 = Conv2D(50, (3, 3), padding='same')(A6)
 A9 = layers.add([A3, A7])
 A10 = Activation('relu')(A9)
 
-A11 = Conv2D(50, (3, 3), padding='same')(A10)
+A11 = Conv2D(50, (3, 3), padding='same')(A10)    # predicted_img[0] = predicted_img[0].squeeze()
+    # predicted_img[1] = predicted_img[1].squeeze()
 # A12 = BatchNormalization(axis=-1)(A11)
 A13 = Activation('relu')(A11)
-A14 = Conv2D(50, (3, 3), padding='same')(A13)
+A14 = Conv2D(50, (3, 3), padding='same')(A13)    # predicted_img[0] = predicted_img[0].squeeze()
+    # predicted_img[1] = predicted_img[1].squeeze()
 # A15 = BatchNormalization(axis=-1)(A14)
 A16 = layers.add([A10, A14])
 A17 = Activation('relu')(A16)
 
-A18 = Conv2D(50, (3, 3), padding='same')(A17)
+A18 = Conv2D(50, (3, 3), padding='same')(A17)    # predicted_img[0] = predicted_img[0].squeeze()
+    # predicted_img[1] = predicted_img[1].squeeze()
 # A19 = BatchNormalization(axis=-1)(A18)
 A20 = Activation('relu')(A18)
-A21 = Conv2D(50, (3, 3), padding='same')(A20)
+A21 = Conv2D(50, (3, 3), padding='same')(A20)    # predicted_img[0] = predicted_img[0].squeeze()
+    # predicted_img[1] = predicted_img[1].squeeze()
 # A22 = BatchNormalization(axis=-1)(A21)
 A23 = layers.add([A17, A21])
 A24 = Activation('relu')(A23)
@@ -161,10 +165,10 @@ B7 = Conv2D(50, (3, 3), padding='same')(B6)
 B9 = layers.add([pooldown, B7])
 B10 = Activation('relu')(B9)
 
-B11 = Conv2D(50, (3, 3), padding='same')(B10)
+B11 = Conv2D(50, (3, 3), padding='same')(B10) 
 # B12 = BatchNormalization(axis=-1)(B11)
 B13 = Activation('relu')(B11)
-B14 = Conv2D(50, (3, 3), padding='same')(B13)
+B14 = Conv2D(50, (3, 3), padding='same')(B13) 
 # B15 = BatchNormalization(axis=-1)(B14)
 B16 = layers.add([B10, B14])
 B17 = Activation('relu')(B16)
@@ -229,8 +233,7 @@ plot_model(cnn2_model, show_shapes=True, to_file='models/cnn2_model.png')
 
 
 def load_model():
-    model = keras.models.load_model('models/cnn2a-bmodel-shd-350-102.h5')
-    model.summary()
+    model = keras.models.load_model('models/cnn2a-bmodel-shd-npy-150-50.h5')
     return(model)
 
 
@@ -287,7 +290,7 @@ def DB_predict(i, x1, x2, y1, y2):
     # cv2.imwrite('validate/'+str(i)+'input.png',
     #             (255.0*predicted_img[1]).astype(np.uint8))
     combo = combImages(255.0*x1, 255.0*x2, 255.0 *
-                       predicted_img[0], 255.0*predicted_img[1], 255.0*wrap)
+                       predicted_img[0], 255.0*predicted_img[1], 128.0*wrap)
 
     # cv2.imwrite('validate/'+str(i)+'combo.png', (1.0*combo).astype(np.uint8))
     return(combo)
@@ -303,26 +306,26 @@ combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img)
 for i in range(0, 150, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
-    myfile = 'fringeA/' + str(i)+'.png'
+    myfile = 'newfringeA/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
-    img = normalize_image255(img)
-    inp_1 = make_grayscale(img)
+    inp_1 = normalize_image255(img)
+    inp_1 = make_grayscale(inp_1)
 
-    myfile = 'gray/' + str(i)+'.png'
+    myfile = 'newgray/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
-    img = normalize_image255(img)
-    inp_2 = make_grayscale(img)
+    inp_2 = normalize_image255(img)
+    inp_2 = make_grayscale(inp_2)
 
-    myfile = 'nom/' + str(i)+'.npy'
-    img = np.load(myfile)
-    nom_img = normalize_image255(img)
+    myfile = 'newnom/' + str(i)+'.npy'
+    nom_img = np.load(myfile)
+    # nom_img = normalize_image255(nom_img)
 
-    myfile = 'denom/' + str(i)+'.npy'
-    img = np.load(myfile)
-    denom_img = normalize_image255(img)
+    myfile = 'newdenom/' + str(i)+'.npy'
+    denom_img = np.load(myfile)
+    # denom_img = normalize_image255(denom_img)
 
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-npy-150-50.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-npy-150-50-0.png',
+model.save('models/cnn2a-bmodel-shd-npy-150-5.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-npy-150-5-0.png',
             (1.0*combotot).astype(np.uint8))

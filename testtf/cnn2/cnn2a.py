@@ -71,10 +71,10 @@ fringe_images = np.expand_dims(fringe_images, -1)
 background_images = np.expand_dims(background_images, -1)
 # nom_images = np.expand_dims(nom_images, -1)
 # denom_images = np.expand_dims(denom_images, -1)
-print('fringeshape:', np.shape(fringe_images ))
-print('backgroundshape:', np.shape(background_images) )
-print('nomshape:', np.shape(nom_images ))
-print('denomshape:', np.shape(denom_images) )
+# print('fringeshape:', np.shape(fringe_images ))
+# print('backgroundshape:', np.shape(background_images) )
+# print('nomshape:', np.shape(nom_images ))
+# print('denomshape:', np.shape(denom_images) )
 
 
 print("input shape: {}".format(fringe_images.shape))
@@ -269,7 +269,7 @@ def DB_predict(i, x1, x2, y1, y2):
     predicted_img[0] = predicted_img[0].squeeze()
     predicted_img[1] = predicted_img[1].squeeze()
     # wrap = nn_wrap(predicted_img[0], predicted_img[1]) # use prediction output
-    wrap = nn_wrap(y1, y2) # Use scanning output   
+    wrap = nn_wrap(255*y1, 255*y2) # Use scanning output   
     # cv2.imwrite('validate/'+str(i)+'filteredSync.png',
     #             (255.0*predicted_img[0]).astype(np.uint8))
     # cv2.imwrite('validate/'+str(i)+'input.png',
