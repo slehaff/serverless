@@ -17,7 +17,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 50
+number_of_epochs = 20
 IMAGECOUNT = 349
 
 
@@ -71,6 +71,10 @@ fringe_images = np.expand_dims(fringe_images, -1)
 background_images = np.expand_dims(background_images, -1)
 # nom_images = np.expand_dims(nom_images, -1)
 # denom_images = np.expand_dims(denom_images, -1)
+print('fringeshape:', np.shape(fringe_images ))
+print('backgroundshape:', np.shape(background_images) )
+print('nomshape:', np.shape(nom_images ))
+print('denomshape:', np.shape(denom_images) )
 
 
 print("input shape: {}".format(fringe_images.shape))
@@ -309,6 +313,6 @@ for i in range(100, 280, 1):
 
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-350-50.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-350-50-0.png',
+model.save('models/cnn2a-bmodel-shd-350-20.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-350-20-0.png',
             (1.0*combotot).astype(np.uint8))

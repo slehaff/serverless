@@ -3,21 +3,21 @@ from enhance import *
 import numpy as np
 
 
-indexarray= [[103,0],[271,10],[410,20],[103,137],[271,137],[410,137],[103,312], [271,271], [410,281]]
+indexarray= [[103,0],[271,10],[410,20],[103,137],[271,137],[410,137],[410,137], [271,271], [410,281]]
 
 
-def imslice(imgpath, destfolder, offset, istart, iend, jstart, jend):
-    img = Image.open(imgpath)
-    n = offset
-    out_height = 64
-    out_width = 64
-    for i in range(istart, iend):
-        for j in range(jstart, jend):
-            myslice = img.crop((i*out_width, j*out_height, i *
-                              out_width+64, j*out_height+64))
-            myslice.save(destfolder + str(n) + '.png')
-            n += 1
-    return
+# def imslice(imgpath, destfolder, offset, istart, iend, jstart, jend):
+#     img = Image.open(imgpath)
+#     n = offset
+#     out_height = 64
+#     out_width = 64
+#     for i in range(istart, iend):
+#         for j in range(jstart, jend):
+#             myslice = img.crop((i*out_width, j*out_height, i *
+#                               out_width+64, j*out_height+64))
+#             myslice.save(destfolder + str(n) + '.png')
+#             n += 1
+#     return
 
 def im2slice(imgpath, destfolder, offset, winindex):
     img = Image.open(imgpath)

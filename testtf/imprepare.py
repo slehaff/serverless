@@ -2,7 +2,7 @@ from PIL import Image
 from enhance import *
 
 
-indexarray= [[103,0],[271,10],[410,20],[103,137],[271,137],[410,137],[103,412], [271,271], [410,281]]
+indexarray= [[103,0],[271,10],[410,20],[103,137],[271,137],[410,137],[410,137], [271,271], [410,281]]
 
 
 def imslice(imgpath, destfolder, offset, istart, iend, jstart, jend):

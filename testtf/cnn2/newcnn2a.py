@@ -17,7 +17,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 20
+number_of_epochs = 50
 IMAGECOUNT = 150
 
 
@@ -48,15 +48,16 @@ def to_array(folder_path, array, file_count):
         inp_img = make_grayscale(img)
         array.append(inp_img)
     return
+   
 
 
 def to_npy_array(folder_path, array, file_count):
     for i in range(0, file_count, 1):
         myfile = folder_path + str(i)+'.npy'
         img = np.load(myfile)
-        print('npy Shape:', img.shape )
         img = normalize_image255(img)
         array.append(img)
+        print('npyarray shape:', np.shape(array))
     return
 
 
@@ -81,7 +82,10 @@ fringe_images = np.expand_dims(fringe_images, -1)
 background_images = np.expand_dims(background_images, -1)
 # nom_images = np.expand_dims(nom_images, -1)
 # denom_images = np.expand_dims(denom_images, -1)
-
+print('fringeshape:', np.shape(fringe_images ))
+print('backgroundshape:', np.shape(background_images) )
+print('nomshape:', np.shape(nom_images ))
+print('denomshape:', np.shape(denom_images) )
 
 print("input shape: {}".format(fringe_images.shape))
 # print("output shape: {}".format(nom_images.shape))
@@ -195,9 +199,9 @@ output_B = Activation('relu')(B33)
 
 combined = concatenate([output_A, output_B], axis=3)
 x = Conv2D(2, (3, 3), padding='same')(combined)
-x1 = Flatten()(x)
-y_nom = Lambda(lambda x: x[  0])(x1)
-y_denom = Lambda(lambda x: x[ 1])(x1)
+# x1 = Flatten()(x)
+y_nom = Lambda(lambda x: x[:, :, :, 0])(x)
+y_denom = Lambda(lambda x: x[:, :, :, 1])(x)
 
 # ================================= End of Merge ======================================
 
@@ -266,8 +270,8 @@ def plot():
 plot()
 
 
-def combImages(x1, x2, i1, i2, i3, i4, i5):
-    new_img = img4 = np.concatenate((x1, x2, i1, i2, i3, i4, i5), axis=1)
+def combImages(x1, x2, i1, i2, i3):
+    new_img = img4 = np.concatenate((x1, x2, i1, i2, i3), axis=1)
     return(new_img)
 
 
@@ -319,6 +323,6 @@ for i in range(0, 150, 1):
 
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-150-25.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-150-25-0.png',
+model.save('models/cnn2a-bmodel-shd-npy-150-50.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-npy-150-50-0.png',
             (1.0*combotot).astype(np.uint8))
