@@ -17,7 +17,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 5
+number_of_epochs = 20
 IMAGECOUNT = 150
 
 
@@ -273,8 +273,8 @@ def plot():
 plot()
 
 
-def combImages(x1, x2, i1, i2, i3):
-    new_img = img4 = np.concatenate((x1, x2, i1, i2, i3), axis=1)
+def combImages(x1, x2, i1, i2, i3, i4, i5):
+    new_img = img4 = np.concatenate((x1, x2, i1, i2, i3, i4, i5), axis=1)
     return(new_img)
 
 
@@ -289,8 +289,8 @@ def DB_predict(i, x1, x2, y1, y2):
     #             (255.0*predicted_img[0]).astype(np.uint8))
     # cv2.imwrite('validate/'+str(i)+'input.png',
     #             (255.0*predicted_img[1]).astype(np.uint8))
-    combo = combImages(255.0*x1, 255.0*x2, 255.0 *
-                       predicted_img[0], 255.0*predicted_img[1], 128.0*wrap)
+    combo = combImages(255.0*x1, 255.0*x2, 255.0* y1, 255.0 *
+                       predicted_img[0], 255.0*y2, 255.0*predicted_img[1], 128.0*wrap)
 
     # cv2.imwrite('validate/'+str(i)+'combo.png', (1.0*combo).astype(np.uint8))
     return(combo)
@@ -302,7 +302,7 @@ myfile = 'fringeA/' + str(1)+'.png'
 img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
-combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img)
+combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
 for i in range(0, 150, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
@@ -326,6 +326,6 @@ for i in range(0, 150, 1):
 
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-npy-150-5.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-npy-150-5-0.png',
+model.save('models/cnn2a-bmodel-shd-npy-150-50.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-npy-150-50-0.png',
             (1.0*combotot).astype(np.uint8))

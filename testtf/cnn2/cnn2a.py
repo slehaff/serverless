@@ -17,7 +17,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 20
+number_of_epochs = 5
 IMAGECOUNT = 349
 
 
@@ -313,6 +313,6 @@ for i in range(100, 280, 1):
 
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-350-20.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-350-20-0.png',
+model.save('models/cnn2a-bmodel-shd-350-5.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-350-5-0.png',
             (1.0*combotot).astype(np.uint8))
