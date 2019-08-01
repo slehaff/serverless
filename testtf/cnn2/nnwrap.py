@@ -22,7 +22,7 @@ def nn_wrap(nom, denom):
         for j in range(rwidth):
             wrap[i, j] = np.arctan2(1.7320508 *nom[i, j], denom[i, j])
             if wrap[i, j] < 0:
-                if greynom[i, j] < 0:
+                if nom[i, j] < 0:
                     wrap[i, j] += 2*np.pi
                 else:
                     wrap[i, j] += 1 * np.pi
@@ -62,6 +62,11 @@ def saveswat(i, nom, denom):
     np.save(folder+ 'newnnnom/' + str(i) + '.npy', nom, allow_pickle=False)
     np.save(folder+ 'newnndenom/' + str(i) + '.npy', denom, allow_pickle=False)
 
+def loadswat(i):
+    folder ='/home/samir/serverless/' 
+    nnnom = np.load(folder+ 'newnnnom/' + str(i) + '.npy')
+    nndenom = np.load(folder+ 'newnndenom/' + str(i) + '.npy')
+    return(nnnom, nndenom)
 
 def testarctan(folder):
     nominator = folder + 'v22/b1nom.png'
@@ -113,6 +118,23 @@ def nnswat_wrap(nom, denom):
     im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
     return(im_wrap)
 
+def save1nnwrap():
+    for i in range(150):
+        nnnom = '/home/samir/serverless/' +'newnnnom/' + str(i) +'.npy'
+        nndenom = '/home/samir/serverless/' +'newnndenom/' + str(i) +'.npy'
+        nnwrap = nnswat_wrap(nnnom, nndenom)
+        pngfile = '/home/samir/serverless/' + 'nn1wrap/' + str(i) + '.png'
+        cv2.imwrite(pngfile, nnwrap)
+
+
+def save1wrap():
+    for i in range(150):
+        nnnom = '/home/samir/serverless/' +'newnom/' + str(i) +'.npy'
+        nndenom = '/home/samir/serverless/' +'newdenom/' + str(i) +'.npy'
+        nnwrap = nnswat_wrap(nnnom, nndenom)
+        pngfile = '/home/samir/serverless/' + '1wrap/' + str(i) + '.png'
+        cv2.imwrite(pngfile, nnwrap)
+
 
 def testfullarctan(folder):
     nominator = folder + '1nom.npy'
@@ -122,8 +144,8 @@ def testfullarctan(folder):
     cv2.imwrite(png_file, test_im_wrap)
 
 def testswatarctan(folder):
-    nominator = folder + 'newnnnom/2.npy'
-    denominator = folder + 'newnndenom/2.npy'
+    nominator = folder + 'newnnnom/12.npy'
+    denominator = folder + 'newnndenom/12.npy'
     test_im_wrap = nnswat_wrap(nominator, denominator)
     png_file = folder + 'npy_nn_im_wrap.png'
     cv2.imwrite(png_file, test_im_wrap)
@@ -137,13 +159,13 @@ def testswatarctan(folder):
 # cv2.imwrite(folder + 'npy1nom.png',
 #             (greynom).astype(np.uint8))
 
-folder = '/home/samir/serverless/' 
-testswatarctan(folder)
-greynom = np.load(folder + 'newnnnom/0.npy')
-greynom = 255.0*greynom
-cv2.imwrite(folder + 'npy0nom.png',
-            (greynom).astype(np.uint8))
-greynom = np.load(folder + 'newnndenom/0.npy')
-greynom = 255.0*greynom
-cv2.imwrite(folder + 'npy0denom.png',
-            (greynom).astype(np.uint8))
+# folder = '/home/samir/serverless/' 
+# testswatarctan(folder)
+# greynom = np.load(folder + 'newnnnom/12.npy')
+# greynom = 255.0*greynom
+# cv2.imwrite(folder + 'npy0nom.png',
+#             (greynom).astype(np.uint8))
+# greynom = np.load(folder + 'newnndenom/12.npy')
+# greynom = 255.0*greynom
+# cv2.imwrite(folder + 'npy0denom.png',
+#             (greynom).astype(np.uint8))

@@ -17,7 +17,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 20
+number_of_epochs = 100
 IMAGECOUNT = 150
 
 
@@ -237,7 +237,7 @@ def load_model():
     return(model)
 
 
-model = load_model()
+# model = load_model()
 
 
 def fct_train():
@@ -253,7 +253,7 @@ def fct_train():
         # convweights.append(model.layers[0].get_weights()[0].squeeze())
 
 
-# fct_train()
+fct_train()
 
 
 def plot():
@@ -273,8 +273,8 @@ def plot():
 plot()
 
 
-def combImages(x1, x2, i1, i2, i3, i4, i5):
-    new_img = img4 = np.concatenate((x1, x2, i1, i2, i3, i4, i5), axis=1)
+def combImages(x1, x2, i1, i2, i3, i4):
+    new_img = img4 = np.concatenate((x1, x2, i1, i2, i3, i4), axis=1)
     return(new_img)
 
 
@@ -284,15 +284,17 @@ def DB_predict(i, x1, x2, y1, y2):
         [np.array([np.expand_dims(x1, -1)]), np.array([np.expand_dims(x2, -1)])])
     predicted_img[0] = predicted_img[0].squeeze()
     predicted_img[1] = predicted_img[1].squeeze()
-    wrap = nn_wrap(predicted_img[0], predicted_img[1]) # use prediction output
+    # wrap = nn_wrap(predicted_img[0], predicted_img[1]) # use prediction output
     saveswat(i, predicted_img[0], predicted_img[1])
+    # nnnom, nndenom = loadswat(i)
+
     # wrap = nn_wrap(255.0*y1, 255.0*y2) # Use scanning output   
     # cv2.imwrite('validate/'+str(i)+'filteredSync.png',
     #             (255.0*predicted_img[0]).astype(np.uint8))
     # cv2.imwrite('validate/'+str(i)+'input.png',
     #             (255.0*predicted_img[1]).astype(np.uint8))
     combo = combImages(255.0*x1, 255.0*x2, 255.0* y1, 255.0 *
-                       predicted_img[0], 255.0*y2, 255.0*predicted_img[1], 128.0*wrap)
+                       predicted_img[0], 255.0*y2, 255.0*predicted_img[1])
 
     # cv2.imwrite('validate/'+str(i)+'combo.png', (1.0*combo).astype(np.uint8))
     return(combo)
@@ -304,7 +306,7 @@ myfile = 'fringeA/' + str(1)+'.png'
 img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
-combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
+combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
 for i in range(0, 150, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
@@ -328,6 +330,9 @@ for i in range(0, 150, 1):
 
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-npy-150-20.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-npy-150-20-0.png',
+
+save1nnwrap()
+save1wrap()
+model.save('models/cnn2a-bmodel-shd-npy-150-100.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-npy-150-100-0.png',
             (1.0*combotot).astype(np.uint8))
