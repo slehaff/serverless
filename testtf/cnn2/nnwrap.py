@@ -122,10 +122,10 @@ def testfullarctan(folder):
     cv2.imwrite(png_file, test_im_wrap)
 
 def testswatarctan(folder):
-    nominator = folder + 'newnom/0.npy'
-    denominator = folder + 'newdenom/0.npy'
+    nominator = folder + 'newnnnom/2.npy'
+    denominator = folder + 'newnndenom/2.npy'
     test_im_wrap = nnswat_wrap(nominator, denominator)
-    png_file = folder + 'npy_im_wrap.png'
+    png_file = folder + 'npy_nn_im_wrap.png'
     cv2.imwrite(png_file, test_im_wrap)
 
 # folder = '/home/samir/serverless/testtf/data/new_train/2scan_im_folder/' 
@@ -139,9 +139,11 @@ def testswatarctan(folder):
 
 folder = '/home/samir/serverless/' 
 testswatarctan(folder)
-greynom = np.load(folder + 'newnom/0.npy')
-cv2.imwrite(folder + 'npy1nom.png',
+greynom = np.load(folder + 'newnnnom/0.npy')
+greynom = 255.0*greynom
+cv2.imwrite(folder + 'npy0nom.png',
             (greynom).astype(np.uint8))
-greynom = np.load(folder + 'newdenom/0.npy')
-cv2.imwrite(folder + 'npy1denom.png',
+greynom = np.load(folder + 'newnndenom/0.npy')
+greynom = 255.0*greynom
+cv2.imwrite(folder + 'npy0denom.png',
             (greynom).astype(np.uint8))
