@@ -233,11 +233,11 @@ plot_model(cnn2_model, show_shapes=True, to_file='models/cnn2_model.png')
 
 
 def load_model():
-    model = keras.models.load_model('models/cnn2a-bmodel-shd-npy-150-50.h5')
+    model = keras.models.load_model('models/cnn2a-bmodel-shd-npy-150-20.h5')
     return(model)
 
 
-# model = load_model()
+model = load_model()
 
 
 def fct_train():
@@ -253,7 +253,7 @@ def fct_train():
         # convweights.append(model.layers[0].get_weights()[0].squeeze())
 
 
-fct_train()
+# fct_train()
 
 
 def plot():
@@ -279,12 +279,14 @@ def combImages(x1, x2, i1, i2, i3, i4, i5):
 
 
 def DB_predict(i, x1, x2, y1, y2):
+    print('y1 shape:', y1.shape)
     predicted_img = model.predict(
         [np.array([np.expand_dims(x1, -1)]), np.array([np.expand_dims(x2, -1)])])
     predicted_img[0] = predicted_img[0].squeeze()
     predicted_img[1] = predicted_img[1].squeeze()
     wrap = nn_wrap(predicted_img[0], predicted_img[1]) # use prediction output
-    # wrap = nn_wrap(y1, y2) # Use scanning output   
+    saveswat(i, predicted_img[0], predicted_img[1])
+    # wrap = nn_wrap(255.0*y1, 255.0*y2) # Use scanning output   
     # cv2.imwrite('validate/'+str(i)+'filteredSync.png',
     #             (255.0*predicted_img[0]).astype(np.uint8))
     # cv2.imwrite('validate/'+str(i)+'input.png',
@@ -326,6 +328,6 @@ for i in range(0, 150, 1):
 
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnn2a-bmodel-shd-npy-150-50.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-npy-150-50-0.png',
+model.save('models/cnn2a-bmodel-shd-npy-150-20.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-npy-150-20-0.png',
             (1.0*combotot).astype(np.uint8))

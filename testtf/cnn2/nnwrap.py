@@ -14,10 +14,6 @@ def sqdist(v1, v2):
     return 1-d*d
 
 
-
-
-
-
 def nn_wrap(nom, denom):
     wrap = np.zeros((rheight, rwidth), dtype=np.float)
     im_wrap = np.zeros((rheight, rwidth), dtype=np.float)
@@ -26,7 +22,7 @@ def nn_wrap(nom, denom):
         for j in range(rwidth):
             wrap[i, j] = np.arctan2(1.7320508 *nom[i, j], denom[i, j])
             if wrap[i, j] < 0:
-                if nom[i, j] < 0:
+                if greynom[i, j] < 0:
                     wrap[i, j] += 2*np.pi
                 else:
                     wrap[i, j] += 1 * np.pi
@@ -61,6 +57,10 @@ def nn2_wrap(nom, denom):
     im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
     return(im_wrap)
 
+def saveswat(i, nom, denom):
+    folder = '/home/samir/serverless/'
+    np.save(folder+ 'newnnnom/' + str(i) + '.npy', nom, allow_pickle=False)
+    np.save(folder+ 'newnndenom/' + str(i) + '.npy', denom, allow_pickle=False)
 
 
 def testarctan(folder):
@@ -75,7 +75,7 @@ def testarctan(folder):
 # testarctan(folder)
 
 
-def nn3_wrap(nom, denom):
+def nnfull_wrap(nom, denom):
     wrap = np.zeros((fullheight, fullwidth), dtype=np.float)
     im_wrap = np.zeros((fullheight, fullwidth), dtype=np.float)
     greynom = np.load(nom)
@@ -94,22 +94,54 @@ def nn3_wrap(nom, denom):
     im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
     return(im_wrap)
 
+def nnswat_wrap(nom, denom):
+    wrap = np.zeros((rheight, rwidth), dtype=np.float)
+    im_wrap = np.zeros((rheight, rwidth), dtype=np.float)
+    greynom = np.load(nom)
+    greydenom = np.load(denom)
+    for i in range(rheight):
+        for j in range(rwidth):
+            wrap[i, j] = np.arctan2(1.7320508 *greynom[i, j], greydenom[i, j])
+            if wrap[i, j] < 0:
+                if greynom[i, j] < 0:
+                    wrap[i, j] += 2*np.pi
+                else:
+                    wrap[i, j] += 1 * np.pi
+            im_wrap[i, j] = 128/np.pi * wrap[i, j]
+
+    wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
+    im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
+    return(im_wrap)
 
 
-
-def test3arctan(folder):
+def testfullarctan(folder):
     nominator = folder + '1nom.npy'
     denominator = folder + '1denom.npy'
-    test_im_wrap = nn3_wrap(nominator, denominator)
+    test_im_wrap = nnfull_wrap(nominator, denominator)
     png_file = folder + 'npy_im_wrap.png'
     cv2.imwrite(png_file, test_im_wrap)
 
+def testswatarctan(folder):
+    nominator = folder + 'newnom/0.npy'
+    denominator = folder + 'newdenom/0.npy'
+    test_im_wrap = nnswat_wrap(nominator, denominator)
+    png_file = folder + 'npy_im_wrap.png'
+    cv2.imwrite(png_file, test_im_wrap)
 
-folder = '/home/samir/serverless/testtf/data/new_train/1scan_im_folder/' 
-test3arctan(folder)
-greynom = np.load(folder + '1denom.npy')
-cv2.imwrite(folder + 'npy1denom.png',
-            (greynom).astype(np.uint8))
-greynom = np.load(folder + '1nom.npy')
+# folder = '/home/samir/serverless/testtf/data/new_train/2scan_im_folder/' 
+# testfullarctan(folder)
+# greynom = np.load(folder + '1denom.npy')
+# cv2.imwrite(folder + 'npy1denom.png',
+#             (greynom).astype(np.uint8))
+# greynom = np.load(folder + '1nom.npy')
+# cv2.imwrite(folder + 'npy1nom.png',
+#             (greynom).astype(np.uint8))
+
+folder = '/home/samir/serverless/' 
+testswatarctan(folder)
+greynom = np.load(folder + 'newnom/0.npy')
 cv2.imwrite(folder + 'npy1nom.png',
+            (greynom).astype(np.uint8))
+greynom = np.load(folder + 'newdenom/0.npy')
+cv2.imwrite(folder + 'npy1denom.png',
             (greynom).astype(np.uint8))
