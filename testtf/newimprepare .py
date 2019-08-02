@@ -76,7 +76,16 @@ def folder2load(offset, folder, winindex):
     npy2slice(imgpath3, destfolder3, offset, winindex)
     npy2slice(imgpath4, destfolder4, offset, winindex)
 
+def folder3load(offset, folder, winindex):
+    imgpath1 = './testtf/data/' + folder + '/image3.npy'
+    destfolder1 = 'newfringeA/'   
+    npy2slice(imgpath1, destfolder1, offset, winindex)
 
+def pngtonpy(file):
+        img = Image.open(file)
+        img = img.convert('1')
+        npyfile = file[:-3] + 'npy'
+        np.save(npyfile, img, allow_pickle= False)
 
 
 def makegray(folder):
@@ -116,6 +125,12 @@ def make(foldername, offset):
     # makegray(foldername)
     folder2load(offset, foldername, indexarray)
 
+
+def make2(foldername, offset):
+    # brighter(foldername)
+    # equalizeImg(foldername)
+    # makegray(foldername)
+    folder3load(offset, foldername, indexarray)
 
 # make('v21', 0)
 # make('v22', 9)
@@ -157,23 +172,26 @@ def make(foldername, offset):
 # make('train/23scan_im_folder', 9*37)
 # make('train/24scan_im_folder', 9*38)
 
-make('new_train/1scan_im_folder', 9*0)
-make('new_train/2scan_im_folder', 9*1)
-make('new_train/3scan_im_folder', 9*2)
-make('new_train/4scan_im_folder', 9*3)
-make('new_train/5scan_im_folder', 9*4)
-make('new_train/6scan_im_folder', 9*5)
-make('new_train/7scan_im_folder', 9*6)
-make('new_train/8scan_im_folder', 9*7)
-make('new_train/9scan_im_folder', 9*8)
-make('new_train/10scan_im_folder', 9*9)
-make('new_train/11scan_im_folder', 9*10)
-make('new_train/12scan_im_folder', 9*11)
-make('new_train/13scan_im_folder', 9*12)
-make('new_train/14scan_im_folder', 9*13)
-make('new_train/15scan_im_folder', 9*14)
-make('new_train/16scan_im_folder', 9*15)
-make('new_train/17scan_im_folder', 9*16)
 
 
+for i in range(17):
+        file = '/home/samir/serverless/testtf/data/new_train/' + str(i+1) + 'scan_im_folder/image3.png'
+        pngtonpy(file)
     
+make2('new_train/1scan_im_folder', 9*0)
+make2('new_train/2scan_im_folder', 9*1)
+make2('new_train/3scan_im_folder', 9*2)
+make2('new_train/4scan_im_folder', 9*3)
+make2('new_train/5scan_im_folder', 9*4)
+make2('new_train/6scan_im_folder', 9*5)
+make2('new_train/7scan_im_folder', 9*6)
+make2('new_train/8scan_im_folder', 9*7)
+make2('new_train/9scan_im_folder', 9*8)
+make2('new_train/10scan_im_folder', 9*9)
+make2('new_train/11scan_im_folder', 9*10)
+make2('new_train/12scan_im_folder', 9*11)
+make2('new_train/13scan_im_folder', 9*12)
+make2('new_train/14scan_im_folder', 9*13)
+make2('new_train/15scan_im_folder', 9*14)
+make2('new_train/16scan_im_folder', 9*15)
+make2('new_train/17scan_im_folder', 9*16)
