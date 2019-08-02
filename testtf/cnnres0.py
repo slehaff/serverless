@@ -72,10 +72,10 @@ def to_npy_array(folder_path, array, file_count):
 input_images = []
 output_images = []
 
-to_array('fringeA/', input_images, 350)
-print('fringeA')
-to_array('gray/', output_images, 350)
-print('gray')
+to_array('newfringeA/', input_images, 150)
+print('newfringeA')
+to_array('newgray/', output_images, 150)
+print('newgray')
 
 
 # Expand the image dimension to conform with the shape required by keras and tensorflow, inputshape=(..., h, w, nchannels).
@@ -150,7 +150,7 @@ def compile_model(model):
     return(model)
 
 
-number_of_epochs = 3
+number_of_epochs = 100
 loss = []
 val_loss = []
 convweights = []
@@ -223,25 +223,25 @@ def DB_predict(i, x, y):
 
 
 # get_my_file('inp/' + str(1)+'.png')
-myfile = 'fringeA/' + str(1)+'.png'
+myfile = 'newfringeA/' + str(1)+'.png'
 img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
 combotot = combImages(inp_img, inp_img, inp_img)
-for i in range(0, 180, 1):
+for i in range(0, 150, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
-    myfile = 'fringeA/' + str(i)+'.png'
+    myfile = 'newfringeA/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     img = normalize_image255(img)
     inp_img = make_grayscale(img)
     #get_my_file('out/' + str(i)+'.png')
-    myfile = 'gray/' + str(i)+'.png'
+    myfile = 'newgray/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     img = normalize_image255(img)
     out_img = make_grayscale(img)
     combo = DB_predict(i, inp_img, out_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnnres01-350-model3+0-adam-noBN.h5')
-cv2.imwrite('validate/'+'cnnres01-350-3+0-adam-noBN.png',
+model.save('models/cnnres01-150-model100+0-adam-noBN.h5')
+cv2.imwrite('validate/'+'cnnres01-150-100+0-adam-noBN.png',
             (1.0*combotot).astype(np.uint8))
