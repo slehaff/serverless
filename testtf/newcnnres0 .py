@@ -150,7 +150,7 @@ def compile_model(model):
     return(model)
 
 
-number_of_epochs = 20
+number_of_epochs = 50
 loss = []
 val_loss = []
 convweights = []
