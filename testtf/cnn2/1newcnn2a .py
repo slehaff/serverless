@@ -18,7 +18,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 200
+number_of_epochs = 3
 IMAGECOUNT = 150
 
 
@@ -68,7 +68,7 @@ background_images = []
 nom_images = []
 denom_images = []
 
-to_array('newfringeA/', fringe_images, IMAGECOUNT)
+to_array('new/fringeA/', fringe_images, IMAGECOUNT)
 to_array('newgray/', background_images, IMAGECOUNT)
 to_npy_array('newnom/', nom_images, IMAGECOUNT)
 to_npy_array('newdenom/', denom_images, IMAGECOUNT)
