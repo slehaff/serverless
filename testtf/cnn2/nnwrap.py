@@ -57,10 +57,15 @@ def nn2_wrap(nom, denom):
     im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
     return(im_wrap)
 
-def saveswat(i, nom, denom):
-    folder = '/home/samir/serverless/'
-    np.save(folder+ 'new4nnnom/' + str(i) + '.npy', nom, allow_pickle=False)
-    np.save(folder+ 'new4nndenom/' + str(i) + '.npy', denom, allow_pickle=False)
+def save4swat(i, nom, denom):
+    folder = '/home/samir/serverless/new/4/'
+    np.save(folder+ 'nnnom/' + str(i) + '.npy', nom, allow_pickle=False)
+    np.save(folder+ 'nndenom/' + str(i) + '.npy', denom, allow_pickle=False)
+
+def save1swat(i, nom, denom):
+    folder = '/home/samir/serverless/new/1/'
+    np.save(folder+ 'nnnom/' + str(i) + '.npy', nom, allow_pickle=False)
+    np.save(folder+ 'nndenom/' + str(i) + '.npy', denom, allow_pickle=False)
 
 def loadswat(i):
     folder ='/home/samir/serverless/' 
@@ -132,7 +137,6 @@ def save4nnwrap():
         nndenom = '/home/samir/serverless/' +'new4nndenom/' + str(i) +'.npy'
         nnwrap = nnswat_wrap(nnnom, nndenom)
         pngfile = '/home/samir/serverless/' + 'nn4wrap/' + str(i) + '.png'
-        print('save4nnwrap: nnnom', nnnom)
         cv2.imwrite(pngfile, nnwrap)
 
 
