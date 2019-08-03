@@ -59,8 +59,8 @@ def nn2_wrap(nom, denom):
 
 def saveswat(i, nom, denom):
     folder = '/home/samir/serverless/'
-    np.save(folder+ 'newnnnom/' + str(i) + '.npy', nom, allow_pickle=False)
-    np.save(folder+ 'newnndenom/' + str(i) + '.npy', denom, allow_pickle=False)
+    np.save(folder+ 'new4nnnom/' + str(i) + '.npy', nom, allow_pickle=False)
+    np.save(folder+ 'new4nndenom/' + str(i) + '.npy', denom, allow_pickle=False)
 
 def loadswat(i):
     folder ='/home/samir/serverless/' 
@@ -126,6 +126,15 @@ def save1nnwrap():
         pngfile = '/home/samir/serverless/' + 'nn1wrap/' + str(i) + '.png'
         cv2.imwrite(pngfile, nnwrap)
 
+def save4nnwrap():
+    for i in range(150):
+        nnnom = '/home/samir/serverless/' +'new4nnnom/' + str(i) +'.npy'
+        nndenom = '/home/samir/serverless/' +'new4nndenom/' + str(i) +'.npy'
+        nnwrap = nnswat_wrap(nnnom, nndenom)
+        pngfile = '/home/samir/serverless/' + 'nn4wrap/' + str(i) + '.png'
+        print('save4nnwrap: nnnom', nnnom)
+        cv2.imwrite(pngfile, nnwrap)
+
 
 def save1wrap():
     for i in range(150):
@@ -133,6 +142,14 @@ def save1wrap():
         nndenom = '/home/samir/serverless/' +'newdenom/' + str(i) +'.npy'
         nnwrap = nnswat_wrap(nnnom, nndenom)
         pngfile = '/home/samir/serverless/' + '1wrap/' + str(i) + '.png'
+        cv2.imwrite(pngfile, nnwrap)
+
+def save4wrap():
+    for i in range(150):
+        nnnom = '/home/samir/serverless/' +'new4nom/' + str(i) +'.npy'
+        nndenom = '/home/samir/serverless/' +'new4denom/' + str(i) +'.npy'
+        nnwrap = nnswat_wrap(nnnom, nndenom)
+        pngfile = '/home/samir/serverless/' + '4wrap/' + str(i) + '.png'
         cv2.imwrite(pngfile, nnwrap)
 
 

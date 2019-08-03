@@ -1,4 +1,5 @@
 # Cnn2 as per paper, processing to generate cos and sin Nom and denom
+# Trying with single cosine wave using 4 instead of one in all output files!!!!
 import numpy as np
 import os
 import cv2
@@ -17,7 +18,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 200
+number_of_epochs = 3
 IMAGECOUNT = 150
 
 
@@ -301,7 +302,7 @@ def DB_predict(i, x1, x2, y1, y2):
 
 
 # get_my_file('inp/' + str(1)+'.png')
-myfile = 'fringeA/' + str(1)+'.png'
+myfile = 'newfringe4A/' + str(1)+'.png'
 
 img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
@@ -310,7 +311,7 @@ combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
 for i in range(0, 150, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
-    myfile = 'newfringeA/' + str(i)+'.png'
+    myfile = 'newfringe4A/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     inp_1 = normalize_image255(img)
     inp_1 = make_grayscale(inp_1)
@@ -320,19 +321,25 @@ for i in range(0, 150, 1):
     inp_2 = normalize_image255(img)
     inp_2 = make_grayscale(inp_2)
 
-    myfile = 'newnom/' + str(i)+'.npy'
+    myfile = 'new4nom/' + str(i)+'.npy'
     nom_img = np.load(myfile)
     # nom_img = normalize_image255(nom_img)
 
-    myfile = 'newdenom/' + str(i)+'.npy'
+    myfile = 'new4denom/' + str(i)+'.npy'
     denom_img = np.load(myfile)
     # denom_img = normalize_image255(denom_img)
 
     combo = DB_predict(i, inp_1, inp_2, nom_img, denom_img)
     combotot = np.concatenate((combotot, combo), axis=0)
 
-save1nnwrap()
-save1wrap()
-model.save('models/cnn2a-bmodel-shd-npy-150-200.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-npy-150-200-0.png',
+# save1nnwrap()
+# save1wrap()
+# model.save('models/cnn2a-bmodel-shd-npy-150-200.h5')
+# cv2.imwrite('validate/'+'cnn2a-shd-npy-150-200-0.png',
+#             (1.0*combotot).astype(np.uint8))
+
+save4nnwrap()
+save4wrap()
+model.save('models/cnn2a-bmodel-shd-4npy-150-50.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-4npy-150-50-0.png',
             (1.0*combotot).astype(np.uint8))

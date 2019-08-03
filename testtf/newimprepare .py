@@ -61,14 +61,14 @@ def npy2slice(imgpath, destfolder, offset, winindex):
 
 
 def folder2load(offset, folder, winindex):
-    imgpath1 = './testtf/data/' + folder + '/image3.png'
-    destfolder1 = 'newfringeA/'
+    imgpath1 = './testtf/data/' + folder + '/image6.png'
+    destfolder1 = 'newfringe4A/'
     imgpath2 = './testtf/data/' + folder + '/gray.png'
     destfolder2 = 'newgray/'
-    imgpath3 = './testtf/data/' + folder + '/1nom.npy'
-    destfolder3 = 'newnom/'
-    imgpath4 = './testtf/data/' + folder + '/1denom.npy'
-    destfolder4 = 'newdenom/'
+    imgpath3 = './testtf/data/' + folder + '/4nom.npy'
+    destfolder3 = 'new4nom/'
+    imgpath4 = './testtf/data/' + folder + '/4denom.npy'
+    destfolder4 = 'new4denom/'
     im2slice(imgpath1, destfolder1, offset, winindex)
     im2slice(imgpath2, destfolder2, offset, winindex)
 #     im2slice(imgpath3, destfolder3, offset, winindex)
@@ -76,16 +76,6 @@ def folder2load(offset, folder, winindex):
     npy2slice(imgpath3, destfolder3, offset, winindex)
     npy2slice(imgpath4, destfolder4, offset, winindex)
 
-def folder3load(offset, folder, winindex):
-    imgpath1 = './testtf/data/' + folder + '/image3.npy'
-    destfolder1 = 'newfringeA/'   
-    npy2slice(imgpath1, destfolder1, offset, winindex)
-
-def pngtonpy(file):
-        img = Image.open(file)
-        img = img.convert('1')
-        npyfile = file[:-3] + 'npy'
-        np.save(npyfile, img, allow_pickle= False)
 
 
 def makegray(folder):
@@ -174,24 +164,38 @@ def make2(foldername, offset):
 
 
 
-for i in range(17):
-        file = '/home/samir/serverless/testtf/data/new_train/' + str(i+1) + 'scan_im_folder/image3.png'
-        pngtonpy(file)
+############################### Code for cnnres0 attempt with npy files: Neative outcome ###################
+
+# def folder3load(offset, folder, winindex):
+#     imgpath1 = './testtf/data/' + folder + '/image3.npy'
+#     destfolder1 = 'newfringeA/'   
+#     npy2slice(imgpath1, destfolder1, offset, winindex)
+
+# def pngtonpy(file):
+#         img = Image.open(file)
+#         img = img.convert('1')
+#         npyfile = file[:-3] + 'npy'
+#         np.save(npyfile, img, allow_pickle= False)
+
+
+# for i in range(17):
+#         file = '/home/samir/serverless/testtf/data/new_train/' + str(i+1) + 'scan_im_folder/image3.png'
+#         pngtonpy(file)
     
-make2('new_train/1scan_im_folder', 9*0)
-make2('new_train/2scan_im_folder', 9*1)
-make2('new_train/3scan_im_folder', 9*2)
-make2('new_train/4scan_im_folder', 9*3)
-make2('new_train/5scan_im_folder', 9*4)
-make2('new_train/6scan_im_folder', 9*5)
-make2('new_train/7scan_im_folder', 9*6)
-make2('new_train/8scan_im_folder', 9*7)
-make2('new_train/9scan_im_folder', 9*8)
-make2('new_train/10scan_im_folder', 9*9)
-make2('new_train/11scan_im_folder', 9*10)
-make2('new_train/12scan_im_folder', 9*11)
-make2('new_train/13scan_im_folder', 9*12)
-make2('new_train/14scan_im_folder', 9*13)
-make2('new_train/15scan_im_folder', 9*14)
-make2('new_train/16scan_im_folder', 9*15)
-make2('new_train/17scan_im_folder', 9*16)
+make('new_train/1scan_im_folder', 9*0)
+make('new_train/2scan_im_folder', 9*1)
+make('new_train/3scan_im_folder', 9*2)
+make('new_train/4scan_im_folder', 9*3)
+make('new_train/5scan_im_folder', 9*4)
+make('new_train/6scan_im_folder', 9*5)
+make('new_train/7scan_im_folder', 9*6)
+make('new_train/8scan_im_folder', 9*7)
+make('new_train/9scan_im_folder', 9*8)
+make('new_train/10scan_im_folder', 9*9)
+make('new_train/11scan_im_folder', 9*10)
+make('new_train/12scan_im_folder', 9*11)
+make('new_train/13scan_im_folder', 9*12)
+make('new_train/14scan_im_folder', 9*13)
+make('new_train/15scan_im_folder', 9*14)
+make('new_train/16scan_im_folder', 9*15)
+make('new_train/17scan_im_folder', 9*16)
