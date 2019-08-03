@@ -1,6 +1,6 @@
 # Cnn2 as per paper, processing to generate cos and sin Nom and denom
-# 1newcnn2a for a high freq cos
-
+# 4newcnn2a for a low freq cos
+import numpy as np
 import os
 import cv2
 import pandas as pd
@@ -18,7 +18,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 3
+number_of_epochs = 200
 IMAGECOUNT = 150
 
 
@@ -68,10 +68,10 @@ background_images = []
 nom_images = []
 denom_images = []
 
-to_array('new/fringeA/', fringe_images, IMAGECOUNT)
-to_array('newgray/', background_images, IMAGECOUNT)
-to_npy_array('newnom/', nom_images, IMAGECOUNT)
-to_npy_array('newdenom/', denom_images, IMAGECOUNT)
+to_array('new/1/fringeA/', fringe_images, IMAGECOUNT)
+to_array('new/1/gray/', background_images, IMAGECOUNT)
+to_npy_array('new/1/nom/', nom_images, IMAGECOUNT)
+to_npy_array('new/1/denom/', denom_images, IMAGECOUNT)
 
 
 input_height = 170
@@ -286,7 +286,7 @@ def DB_predict(i, x1, x2, y1, y2):
     predicted_img[0] = predicted_img[0].squeeze()
     predicted_img[1] = predicted_img[1].squeeze()
     # wrap = nn_wrap(predicted_img[0], predicted_img[1]) # use prediction output
-    saveswat(i, predicted_img[0], predicted_img[1])
+    save1swat(i, predicted_img[0], predicted_img[1])
     # nnnom, nndenom = loadswat(i)
 
     # wrap = nn_wrap(255.0*y1, 255.0*y2) # Use scanning output   
@@ -302,7 +302,7 @@ def DB_predict(i, x1, x2, y1, y2):
 
 
 # get_my_file('inp/' + str(1)+'.png')
-myfile = 'newfringe4A/' + str(1)+'.png'
+myfile = 'new/1/fringeA/' + str(1)+'.png'
 
 img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
@@ -311,21 +311,21 @@ combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
 for i in range(0, 150, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
-    myfile = 'newfringe4A/' + str(i)+'.png'
+    myfile = 'new/1/fringeA/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     inp_1 = normalize_image255(img)
     inp_1 = make_grayscale(inp_1)
 
-    myfile = 'newgray/' + str(i)+'.png'
+    myfile = 'new/1/gray/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     inp_2 = normalize_image255(img)
     inp_2 = make_grayscale(inp_2)
 
-    myfile = 'new4nom/' + str(i)+'.npy'
+    myfile = 'new/1/nom/' + str(i)+'.npy'
     nom_img = np.load(myfile)
     # nom_img = normalize_image255(nom_img)
 
-    myfile = 'new4denom/' + str(i)+'.npy'
+    myfile = 'new/1/denom/' + str(i)+'.npy'
     denom_img = np.load(myfile)
     # denom_img = normalize_image255(denom_img)
 
@@ -338,8 +338,8 @@ for i in range(0, 150, 1):
 # cv2.imwrite('validate/'+'cnn2a-shd-npy-150-200-0.png',
 #             (1.0*combotot).astype(np.uint8))
 
-save4nnwrap()
-save4wrap()
-model.save('models/cnn2a-bmodel-shd-4npy-150-200.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-4npy-150-200-0.png',
+save1nnwrap()
+save1wrap()
+model.save('models/cnn2a-bmodel-shd-1npy-150-200.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-1npy-150-200-0.png',
             (1.0*combotot).astype(np.uint8))
