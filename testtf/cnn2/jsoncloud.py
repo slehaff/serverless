@@ -5,7 +5,7 @@ import os
 from PIL import Image
 import cv2
 import numpy as np
-from pyntcloud import PyntCloud
+# from pyntcloud import PyntCloud
 import json
 
 # focalLength = 1290

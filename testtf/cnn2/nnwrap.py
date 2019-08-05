@@ -130,7 +130,7 @@ def save1nnwrap():
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
         pngfile = '/home/samir/serverless/new/1/' + 'nnwrap/' + str(i) + '.png'
         cv2.imwrite(pngfile, nnimwrap)
-        npyfile ='/home/samir/serverless/new/4/' + 'nnwrap/' + str(i) + '.npy'
+        npyfile ='/home/samir/serverless/new/1/' + 'nnwrap/' + str(i) + '.npy'
         np.save( npyfile, nnnpywrap, allow_pickle=False)
 def save4nnwrap():
     for i in range(150):
@@ -138,9 +138,9 @@ def save4nnwrap():
         nndenom = '/home/samir/serverless/new/4/' +'nndenom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
         pngfile = '/home/samir/serverless/new/4/' + 'nnwrap/' + str(i) + '.png'
-        cv2.imwrite(p
+        cv2.imwrite(pngfile, nnimwrap)
         npyfile = '/home/samir/serverless/new/4/' + 'nnwrap/' + str(i) + '.npy'
-        np.save(npyfile, nnnpyfile, allow_pickle=False)
+        np.save(npyfile, nnnpywrap, allow_pickle=False)
 
 
 def save1wrap():
