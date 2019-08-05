@@ -147,17 +147,21 @@ def save1wrap():
     for i in range(150):
         nnnom = '/home/samir/serverless/new/1/' +'nom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new/1/' +'denom/' + str(i) +'.npy'
-        nnwrap = nnswat_wrap(nnnom, nndenom)
+        nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
         pngfile = '/home/samir/serverless/new/1/' + 'wrap/' + str(i) + '.png'
-        cv2.imwrite(pngfile, nnwrap)
+        cv2.imwrite(pngfile, nnimwrap)
+        npyfile = '/home/samir/serverless/new/1/' + 'wrap/' + str(i) + '.npy'
+        np.save(npyfile, nnnpywrap, allow_pickle=False)
 
 def save4wrap():
     for i in range(150):
         nnnom = '/home/samir/serverless/' +'new/4/nom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/' +'new/4/denom/' + str(i) +'.npy'
-        nnwrap = nnswat_wrap(nnnom, nndenom)
-        pngfile = '/home/samir/serverless/' + 'new/4/wrap/' + str(i) + '.png'
-        cv2.imwrite(pngfile, nnwrap)
+        nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
+        pngfile = '/home/samir/serverless/new/4/' + 'wrap/' + str(i) + '.png'
+        cv2.imwrite(pngfile, nnimwrap)
+        npyfile = '/home/samir/serverless/new/4/' + 'wrap/' + str(i) + '.npy'
+        np.save(npyfile, nnnpywrap, allow_pickle=False)
 
 
 def testfullarctan(folder):
@@ -196,4 +200,6 @@ def testswatarctan(folder):
 
 save1nnwrap()
 save4nnwrap()
+save1wrap()
+save4wrap()
 
