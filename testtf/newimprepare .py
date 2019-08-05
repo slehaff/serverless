@@ -69,9 +69,11 @@ def folder2load(offset, folder, winindex):
     destfolder3 = 'new/4/nom/'
     imgpath4 = './testtf/data/' + folder + '/denom.npy'
     destfolder4 = 'new/4/denom/'
+    imgpath5 = './testtf/data/' + folder + '/image1.png'
+    destfolder5 = 'new/colswt/'
     im2slice(imgpath1, destfolder1, offset, winindex)
     im2slice(imgpath2, destfolder2, offset, winindex)
-#     im2slice(imgpath3, destfolder3, offset, winindex)
+    im2slice(imgpath5, destfolder5, offset, winindex)
 #     im2slice(imgpath4, destfolder4, offset, winindex)
     npy2slice(imgpath3, destfolder3, offset, winindex)
     npy2slice(imgpath4, destfolder4, offset, winindex)

@@ -72,7 +72,15 @@ for i in range(150):
     fhigh = 'new/1/nnwrap/' + str(i) + '.npy'
     destination = 'new/nnunwrap/' + str(i)
     unwrap_r(flow, fhigh, destination)
+    rgb = 'new/colswt/' + str(i) + '.png'
+    depth = 'new/nnunwrap/'+ str(i) + '.png'
+    pcl = 'new/nn3djson/'+ str(i) + '.json'
+    generate_json_pointcloud(rgb, depth, pcl)
     flow = 'new/4/wrap/' + str(i) +'.npy'
     fhigh = 'new/1/wrap/' + str(i) + '.npy'
     destination = 'new/unwrap/' + str(i)
     unwrap_r(flow, fhigh, destination)
+    rgb = 'new/colswt/' + str(i) + '.png'
+    depth = 'new/unwrap/'+ str(i) + '.png'
+    pcl = 'new/3djson/'+ str(i) + '.json'
+    generate_json_pointcloud(rgb, depth, pcl)
