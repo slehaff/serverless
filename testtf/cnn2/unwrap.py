@@ -67,20 +67,43 @@ def unwrap(request):
 
 
 
-for i in range(150):
-    flow = 'new/4/nnwrap/' + str(i) +'.npy'
-    fhigh = 'new/1/nnwrap/' + str(i) + '.npy'
-    destination = 'new/nnunwrap/' + str(i)
-    unwrap_r(flow, fhigh, destination)
-    rgb = 'new/colswt/' + str(i) + '.png'
-    depth = 'new/nnunwrap/'+ str(i) + '.png'
-    pcl = 'new/nn3djson/'+ str(i) + '.json'
-    generate_json_pointcloud(rgb, depth, pcl)
-    flow = 'new/4/wrap/' + str(i) +'.npy'
-    fhigh = 'new/1/wrap/' + str(i) + '.npy'
-    destination = 'new/unwrap/' + str(i)
-    unwrap_r(flow, fhigh, destination)
-    rgb = 'new/colswt/' + str(i) + '.png'
-    depth = 'new/unwrap/'+ str(i) + '.png'
-    pcl = 'new/3djson/'+ str(i) + '.json'
-    generate_json_pointcloud(rgb, depth, pcl)
+# for i in range(150):
+#     flow = 'new/4/nnwrap/' + str(i) +'.npy'
+#     fhigh = 'new/1/nnwrap/' + str(i) + '.npy'
+#     destination = 'new/nnunwrap/' + str(i)
+#     unwrap_r(flow, fhigh, destination)
+#     rgb = 'new/colswt/' + str(i) + '.png'
+#     depth = 'new/nnunwrap/'+ str(i) + '.png'
+#     pcl = 'new/nn3djson/'+ str(i) + '.json'
+#     generate_json_pointcloud(rgb, depth, pcl)
+#     flow = 'new/4/wrap/' + str(i) +'.npy'
+#     fhigh = 'new/1/wrap/' + str(i) + '.npy'
+#     destination = 'new/unwrap/' + str(i)
+#     unwrap_r(flow, fhigh, destination)
+#     rgb = 'new/colswt/' + str(i) + '.png'
+#     depth = 'new/unwrap/'+ str(i) + '.png'
+#     pcl = 'new/3djson/'+ str(i) + '.json'
+#     generate_json_pointcloud(rgb, depth, pcl)
+
+
+
+
+# infile1 = 'new/3djson/14.json'
+# infile2 = 'new/nn3djson/14.json'
+# outfile0 = 'new/pointcl.json'
+# head = []
+# with open(infile1, 'rb') as infile:
+#     file_data = json.load(infile)
+#     head += file_data
+# with open(infile2,'rb') as infile:
+#     file_data = json.load(infile)
+#     head += file_data
+# with open(outfile0, 'w') as outfile:
+#     json.dump(head, outfile)
+
+# with open("compare.json", "w") as outfile:
+#     for f in file_list:
+#         with open(f, 'rb') as infile:
+#             file_data = json.load(infile)
+#             head += file_data
+#     json.dump(head, outfile)
