@@ -6,6 +6,7 @@ vertex order in the MNE sense. Extendable for colors or other vertex/face proper
 .ply format: https://en.wikipedia.org/wiki/PLY_(file_format)
 """
 
+
 # import mne
 import numpy as np
 from os import path as op
@@ -16,6 +17,9 @@ import argparse
 import sys
 import os
 from PIL import Image
+import open3d as o3d
+
+
 
 
 def write_surf2ply(rr, tris, save_path):
