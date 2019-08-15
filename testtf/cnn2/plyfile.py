@@ -148,7 +148,7 @@ def generate_pointcloud(rgb_file,depth_file,ply_file):
             # if Z==0: continue
             # X = (u - centerX) * Z / focalLength
             # Y = (v - centerY) * Z / focalLength
-            Z = depth.getpixel((u, v)) * .11
+            Z = depth.getpixel((u, v)) * .22
             if Z == 0: continue
             Y = .22 * v
             X = .22 * u
@@ -182,13 +182,18 @@ end_header
 #     generate_pointcloud(args.rgb_file,args.depth_file,args.ply_file)
 
 
-for i in range(150):
-    print(i)
-    rgbfile= 'new/colswt/' + str(i) + '.png'
-    depthfile = 'new/nnunwrap/' + str(i) + '.png'
-    plyfile= 'new/nnply/' + str(i) + '.ply'
-    generate_pointcloud(rgbfile, depthfile, plyfile)
-    rgbfile= 'new/colswt/' + str(i) + '.png'
-    depthfile = 'new/unwrap/' + str(i) + '.png'
-    plyfile= 'new/ply/' + str(i) + '.ply'
-    generate_pointcloud(rgbfile, depthfile, plyfile)
+# for i in range(150):
+#     print(i)
+#     rgbfile= 'new/colswt/' + str(i) + '.png'
+#     depthfile = 'new/nnunwrap/' + str(i) + '.png'
+#     plyfile= 'new/nnply/' + str(i) + '.ply'
+#     generate_pointcloud(rgbfile, depthfile, plyfile)
+#     rgbfile= 'new/colswt/' + str(i) + '.png'
+#     depthfile = 'new/unwrap/' + str(i) + '.png'
+#     plyfile= 'new/ply/' + str(i) + '.ply'
+#     generate_pointcloud(rgbfile, depthfile, plyfile)
+folder = '/home/samir/db2/scan/static/scan_folder/scan_im_folder/' 
+rgbfile= folder + 'image1' + '.png'
+depthfile = folder + 'abs_unwrap' + '.png'
+plyfile= folder + 'image3' + '.ply'
+generate_pointcloud(rgbfile, depthfile, plyfile)
