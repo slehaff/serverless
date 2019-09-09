@@ -48,6 +48,7 @@ def to_array(folder_path, array, file_count):
         img = normalize_image255(img)
         inp_img = make_grayscale(img)
         array.append(inp_img)
+        print('i=', i)
     return
    
 
@@ -67,6 +68,8 @@ fringe_images = []
 background_images = []
 nom_images = []
 denom_images = []
+
+print('Reading fringe images')
 
 to_array('new/1/fringeA/', fringe_images, IMAGECOUNT)
 to_array('new/1/gray/', background_images, IMAGECOUNT)
