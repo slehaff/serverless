@@ -194,6 +194,6 @@ end_header
 #     generate_pointcloud(rgbfile, depthfile, plyfile)
 folder = '/home/samir/db2/scan/static/scan_folder/scan_im_folder/' 
 rgbfile= folder + 'image1' + '.png'
-depthfile = folder + 'abs_unwrap' + '.png'
+depthfile = folder + 'unwrap' + '.png'
 plyfile= folder + 'image3' + '.ply'
 generate_pointcloud(rgbfile, depthfile, plyfile)
