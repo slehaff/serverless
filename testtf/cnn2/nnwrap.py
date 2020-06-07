@@ -58,12 +58,12 @@ def nn2_wrap(nom, denom):
     return(im_wrap)
 
 def save4swat(i, nom, denom):
-    folder = '/home/samir/serverless/new/4/'
+    folder = '/home/samir/serverless/new1/4/'
     np.save(folder+ 'nnnom/' + str(i) + '.npy', nom, allow_pickle=False)
     np.save(folder+ 'nndenom/' + str(i) + '.npy', denom, allow_pickle=False)
 
 def save1swat(i, nom, denom):
-    folder = '/home/samir/serverless/new/1/'
+    folder = '/home/samir/serverless/new1/1/'
     np.save(folder+ 'nnnom/' + str(i) + '.npy', nom, allow_pickle=False)
     np.save(folder+ 'nndenom/' + str(i) + '.npy', denom, allow_pickle=False)
 
@@ -124,43 +124,43 @@ def nnswat_wrap(nom, denom):
     return(wrap, im_wrap)
 
 def save1nnwrap():
-    for i in range(150):
-        nnnom = '/home/samir/serverless/new/1/' +'nnnom/' + str(i) +'.npy'
-        nndenom = '/home/samir/serverless/new/1/' +'nndenom/' + str(i) +'.npy'
+    for i in range(90):
+        nnnom = '/home/samir/serverless/new1/1/' +'nnnom/' + str(i) +'.npy'
+        nndenom = '/home/samir/serverless/new1/1/' +'nndenom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
-        pngfile = '/home/samir/serverless/new/1/' + 'nnwrap/' + str(i) + '.png'
+        pngfile = '/home/samir/serverless/new1/1/' + 'nnwrap/' + str(i) + '.png'
         cv2.imwrite(pngfile, nnimwrap)
-        npyfile ='/home/samir/serverless/new/1/' + 'nnwrap/' + str(i) + '.npy'
+        npyfile ='/home/samir/serverless/new1/1/' + 'nnwrap/' + str(i) + '.npy'
         np.save( npyfile, nnnpywrap, allow_pickle=False)
 def save4nnwrap():
-    for i in range(150):
-        nnnom = '/home/samir/serverless/new/4/' +'nnnom/' + str(i) +'.npy'
-        nndenom = '/home/samir/serverless/new/4/' +'nndenom/' + str(i) +'.npy'
+    for i in range(90):
+        nnnom = '/home/samir/serverless/new1/4/' +'nnnom/' + str(i) +'.npy'
+        nndenom = '/home/samir/serverless/new1/4/' +'nndenom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
-        pngfile = '/home/samir/serverless/new/4/' + 'nnwrap/' + str(i) + '.png'
+        pngfile = '/home/samir/serverless/new1/4/' + 'nnwrap/' + str(i) + '.png'
         cv2.imwrite(pngfile, nnimwrap)
-        npyfile = '/home/samir/serverless/new/4/' + 'nnwrap/' + str(i) + '.npy'
+        npyfile = '/home/samir/serverless/new1/4/' + 'nnwrap/' + str(i) + '.npy'
         np.save(npyfile, nnnpywrap, allow_pickle=False)
 
 
 def save1wrap():
-    for i in range(150):
-        nnnom = '/home/samir/serverless/new/1/' +'nom/' + str(i) +'.npy'
-        nndenom = '/home/samir/serverless/new/1/' +'denom/' + str(i) +'.npy'
+    for i in range(90):
+        nnnom = '/home/samir/serverless/new1/1/' +'nom/' + str(i) +'.npy'
+        nndenom = '/home/samir/serverless/new1/1/' +'denom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
-        pngfile = '/home/samir/serverless/new/1/' + 'wrap/' + str(i) + '.png'
+        pngfile = '/home/samir/serverless/new1/1/' + 'wrap/' + str(i) + '.png'
         cv2.imwrite(pngfile, nnimwrap)
-        npyfile = '/home/samir/serverless/new/1/' + 'wrap/' + str(i) + '.npy'
+        npyfile = '/home/samir/serverless/new1/1/' + 'wrap/' + str(i) + '.npy'
         np.save(npyfile, nnnpywrap, allow_pickle=False)
 
 def save4wrap():
-    for i in range(150):
-        nnnom = '/home/samir/serverless/' +'new/4/nom/' + str(i) +'.npy'
-        nndenom = '/home/samir/serverless/' +'new/4/denom/' + str(i) +'.npy'
+    for i in range(90):
+        nnnom = '/home/samir/serverless/' +'new1/4/nom/' + str(i) +'.npy'
+        nndenom = '/home/samir/serverless/' +'new1/4/denom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
-        pngfile = '/home/samir/serverless/new/4/' + 'wrap/' + str(i) + '.png'
+        pngfile = '/home/samir/serverless/new1/4/' + 'wrap/' + str(i) + '.png'
         cv2.imwrite(pngfile, nnimwrap)
-        npyfile = '/home/samir/serverless/new/4/' + 'wrap/' + str(i) + '.npy'
+        npyfile = '/home/samir/serverless/new1/4/' + 'wrap/' + str(i) + '.npy'
         np.save(npyfile, nnnpywrap, allow_pickle=False)
 
 
@@ -198,8 +198,8 @@ def testswatarctan(folder):
 # cv2.imwrite(folder + 'npy0denom.png',
 #             (greynom).astype(np.uint8))
 
-save1nnwrap()
-save4nnwrap()
-save1wrap()
-save4wrap()
+# save1nnwrap()
+# save4nnwrap()
+# save1wrap()
+# save4wrap()
 

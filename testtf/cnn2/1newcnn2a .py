@@ -18,8 +18,8 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 200
-IMAGECOUNT = 150
+number_of_epochs = 100
+IMAGECOUNT = 90
 
 
 def make_grayscale(img):
@@ -71,10 +71,10 @@ denom_images = []
 
 print('Reading fringe images')
 
-to_array('new/1/fringeA/', fringe_images, IMAGECOUNT)
-to_array('new/1/gray/', background_images, IMAGECOUNT)
-to_npy_array('new/1/nom/', nom_images, IMAGECOUNT)
-to_npy_array('new/1/denom/', denom_images, IMAGECOUNT)
+to_array('new1/1/fringeA/', fringe_images, IMAGECOUNT)
+to_array('new1/1/gray/', background_images, IMAGECOUNT)
+to_npy_array('new1/1/nom/', nom_images, IMAGECOUNT)
+to_npy_array('new1/1/denom/', denom_images, IMAGECOUNT)
 
 
 input_height = 170
@@ -232,7 +232,7 @@ val_loss = []
 convweights = []
 
 compile_model(cnn2_model)
-model = cnn2_model
+# model = cnn2_model
 plot_model(cnn2_model, show_shapes=True, to_file='models/cnn2_model.png')
 
 
@@ -241,7 +241,7 @@ def load_model():
     return(model)
 
 
-# model = load_model()
+model = load_model()
 
 
 def fct_train():
@@ -305,30 +305,30 @@ def DB_predict(i, x1, x2, y1, y2):
 
 
 # get_my_file('inp/' + str(1)+'.png')
-myfile = 'new/1/fringeA/' + str(1)+'.png'
+myfile = 'new1/1/fringeA/' + str(1)+'.png'
 
 img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
 combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
-for i in range(0, 150, 1):
+for i in range(0, 90, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
-    myfile = 'new/1/fringeA/' + str(i)+'.png'
+    myfile = 'new1/1/fringeA/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     inp_1 = normalize_image255(img)
     inp_1 = make_grayscale(inp_1)
 
-    myfile = 'new/1/gray/' + str(i)+'.png'
+    myfile = 'new1/1/gray/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     inp_2 = normalize_image255(img)
     inp_2 = make_grayscale(inp_2)
 
-    myfile = 'new/1/nom/' + str(i)+'.npy'
+    myfile = 'new1/1/nom/' + str(i)+'.npy'
     nom_img = np.load(myfile)
     # nom_img = normalize_image255(nom_img)
 
-    myfile = 'new/1/denom/' + str(i)+'.npy'
+    myfile = 'new1/1/denom/' + str(i)+'.npy'
     denom_img = np.load(myfile)
     # denom_img = normalize_image255(denom_img)
 
@@ -343,6 +343,6 @@ for i in range(0, 150, 1):
 
 save1nnwrap()
 save1wrap()
-model.save('models/cnn2a-bmodel-shd-1npy-150-200.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-1npy-150-200-0.png',
+model.save('models/cnn2a-bmodel-shd-1npy-89-100.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-1npy-89-100-0.png',
             (1.0*combotot).astype(np.uint8))
