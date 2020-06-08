@@ -124,7 +124,7 @@ def nnswat_wrap(nom, denom):
     return(wrap, im_wrap)
 
 def save1nnwrap():
-    for i in range(90):
+    for i in range(100):
         nnnom = '/home/samir/serverless/new1/1/' +'nnnom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new1/1/' +'nndenom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
@@ -133,7 +133,7 @@ def save1nnwrap():
         npyfile ='/home/samir/serverless/new1/1/' + 'nnwrap/' + str(i) + '.npy'
         np.save( npyfile, nnnpywrap, allow_pickle=False)
 def save4nnwrap():
-    for i in range(90):
+    for i in range(100):
         nnnom = '/home/samir/serverless/new1/4/' +'nnnom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new1/4/' +'nndenom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
@@ -144,7 +144,7 @@ def save4nnwrap():
 
 
 def save1wrap():
-    for i in range(90):
+    for i in range(100):
         nnnom = '/home/samir/serverless/new1/1/' +'nom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new1/1/' +'denom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
@@ -154,7 +154,7 @@ def save1wrap():
         np.save(npyfile, nnnpywrap, allow_pickle=False)
 
 def save4wrap():
-    for i in range(90):
+    for i in range(100):
         nnnom = '/home/samir/serverless/' +'new1/4/nom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/' +'new1/4/denom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
