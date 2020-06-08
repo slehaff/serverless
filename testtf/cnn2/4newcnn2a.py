@@ -18,7 +18,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 100
+number_of_epochs = 50
 IMAGECOUNT = 100
 
 
@@ -234,7 +234,7 @@ plot_model(cnn2_model, show_shapes=True, to_file='models/cnn2_model.png')
 
 
 def load_model():
-    model = keras.models.load_model('models/cnn2a-bmodel-shd-npy-150-20.h5')
+    model = keras.models.load_model('models/cnn2a-bmodel-shd-4npy-100-200.h5')
     return(model)
 
 
@@ -341,6 +341,6 @@ for i in range(0, 100, 1):
 
 save4nnwrap()
 save4wrap()
-model.save('models/cnn2a-bmodel-shd-4npy-100-100.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-4npy-100-100-0.png',
+model.save('models/cnn2a-bmodel-shd-4npy-100-50.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-4npy-100-50-0.png',
             (1.0*combotot).astype(np.uint8))

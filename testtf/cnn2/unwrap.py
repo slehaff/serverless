@@ -7,7 +7,7 @@ from PIL import Image
 from jsoncloud import *
 
 
-high_freq = 10
+high_freq = 13
 rwidth = 170
 rheight = 170
 
@@ -67,11 +67,11 @@ def unwrap(request):
 
 
 
-# for i in range(150):
-#     flow = 'new/4/nnwrap/' + str(i) +'.npy'
-#     fhigh = 'new/1/nnwrap/' + str(i) + '.npy'
-#     destination = 'new/nnunwrap/' + str(i)
-#     unwrap_r(flow, fhigh, destination)
+for i in range(100):
+    flow = 'new1-99/4/nnwrap/' + str(i) +'.npy'
+    fhigh = 'new1-99/1/nnwrap/' + str(i) + '.npy'
+    destination = 'new1-99/nnunwrap/' + str(i)
+    unwrap_r(flow, fhigh, destination)
 #     rgb = 'new/colswt/' + str(i) + '.png'
 #     depth = 'new/nnunwrap/'+ str(i) + '.png'
 #     pcl = 'new/nn3djson/'+ str(i) + '.json'
