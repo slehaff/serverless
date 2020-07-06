@@ -279,6 +279,24 @@ def combImages(x1, x2, i1, i2, i3, i4):
     return(new_img)
 
 
+def DB4_infer(x1,x2):
+
+    img = cv2.imread(x1).astype(np.float32)
+    inp_1 = normalize_image255(img)
+    inp_1 = make_grayscale(inp_1)
+
+    img = cv2.imread(x2).astype(np.float32)
+    inp_2 = normalize_image255(img)
+    inp_2 = make_grayscale(inp_2)   
+
+    predicted_img = model.predict([np.array([np.expand_dims(inp_1, -1)]), np.array([np.expand_dims(inp_2, -1)])])
+    predicted_img[0] = predicted_img[0].squeeze()
+    predicted_img[1] = predicted_img[1].squeeze()
+    return(predicted_img[0], predicted_img[1])
+
+
+
+
 def DB_predict(i, x1, x2, y1, y2):
     print('y1 shape:', y1.shape)
     predicted_img = model.predict(
