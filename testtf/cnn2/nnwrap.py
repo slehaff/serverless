@@ -3,8 +3,8 @@ import cv2
 import numpy as np
 import time
 # from testtf.cnn2.new1cnn2a import DB1_infer
-from testtf.cnn2.new4cnn2a import DB4_infer
-from testtf.cnn2.new1cnn2a import DB1_infer
+# from new4cnn2a import *
+# from new1cnn2a import *
 
 rwidth = 170
 rheight = 170
@@ -134,6 +134,8 @@ def save1nnwrap():
         cv2.imwrite(pngfile, nnimwrap)
         npyfile ='/home/samir/serverless/new1/1/' + 'nnwrap/' + str(i) + '.npy'
         np.save( npyfile, nnnpywrap, allow_pickle=False)
+
+        
 def save4nnwrap():
     for i in range(100):
         nnnom = '/home/samir/serverless/new1/4/' +'nnnom/' + str(i) +'.npy'
@@ -204,12 +206,14 @@ def testswatarctan(folder):
 # save4nnwrap()
 # save1wrap()
 # save4wrap()
-folder = '/home/samir/serverless/infer/scan_im_folder/'
-nom1, denom1 = DB1_infer(folder + 'image0.png', folder + 'image2.png')
-nom4, denom4 = DB4_infer(folder + 'image0.png', folder + 'image1.png')
-cv2.imwrite(folder+ 'nom1.png', 255*nom1)
-cv2.imwrite(folder+ 'denom1.png', 255*denom1)
-cv2.imwrite(folder+ 'nom4.png', 255*nom4)
-cv2.imwrite(folder+ 'denom4.png', 255*denom4)
+
+def infer():
+    folder = '/home/samir/serverless/infer/scan_im_folder/'
+    nom1, denom1 = DB1_infer(folder + 'image0.png', folder + 'image2.png')
+    nom4, denom4 = DB4_infer(folder + 'image0.png', folder + 'image1.png')
+    cv2.imwrite(folder+ 'nom1.png', 255*nom1)
+    cv2.imwrite(folder+ 'denom1.png', 255*denom1)
+    cv2.imwrite(folder+ 'nom4.png', 255*nom4)
+    cv2.imwrite(folder+ 'denom4.png', 255*denom4)
 
 
