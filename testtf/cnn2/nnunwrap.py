@@ -24,7 +24,55 @@ scalingFactor = 5000
 PI = np.pi
 
 
+
 def unwrap_r(low_f_file, high_f_file, destination):
+    filelow = low_f_file
+    filehigh = high_f_file
+    wraplow = np.zeros((rheight, rwidth), dtype=np.float64)
+    wraphigh = np.zeros((rheight, rwidth), dtype=np.float64)
+    unwrapdata = np.zeros((rheight, rwidth), dtype=np.float64)
+    im_unwrap = np.zeros((rheight, rwidth), dtype=np.float64)
+    wraplow = np.load(filelow)  # To be continued
+    wraphigh = np.load(filehigh)
+    # print('highrange=', np.ptp(wraphigh), np.max(wraphigh), np.min(wraphigh) )
+    # print('lowrange=', np.ptp(wraplow), np.max(wraplow), np.min(wraplow) )
+    # print('high:', wraphigh)
+    # print('low:', wraplow)
+    
+    unwrapdata = np.zeros((rheight, rwidth), dtype=np.float64)
+    kdata = np.zeros((rheight, rwidth), dtype=np.int64)
+    # wrap1data = cv2.GaussianBlur(wrap1data, (0, 0), 3, 3)
+    # wrap2data = cv2.GaussianBlur(wrap2data, (0, 0), 4, 4)
+    for i in range(rheight):
+        for j in range(rwidth):
+            kdata[i, j] = round((high_freq/low_freq * (wraplow[i, j])- wraphigh[i, j])/(2*PI))
+            # unwrapdata[i,j] = .1*(1.1*wraphigh[i, j]/np.max(wraphigh) +2*PI* kdata[i, j]/np.max(wraphigh))
+            # unwrapdata[i,j] = 1*(1*wraphigh[i, j] +2*PI* kdata[i, j])
+    unwrapdata = np.add(wraphigh, np.multiply(2*PI,kdata) )
+    print('kdata:', np.ptp(np.multiply(1,kdata)))
+    print('unwrap:', np.ptp(unwrapdata))
+    # print("I'm in unwrap_r")
+    print('kdata:', kdata[::40, ::40])
+    wr_save = destination + '.npy'
+    np.save(wr_save, unwrapdata, allow_pickle=False)
+    # print(wr_save)
+    # np.save('wrap24.pickle', wrap24data, allow_pickle=True)
+    # unwrapdata = np.multiply(unwrapdata, 1.0)
+    # unwrapdata = np.unwrap(np.transpose(unwrapdata))
+    # unwrapdata = cv2.GaussianBlur(unwrapdata,(0,0),3,3)
+    # unwrapdata = np.multiply(unwrapdata, 1.0)
+    maxval = np.amax(unwrapdata)
+    print('maxval:', maxval)
+    # im_unwrap = 255*unwrapdata/ maxval# np.max(unwrapdata)*255)
+    im_unwrap = 3*unwrapdata# np.max(unwrapdata)*255)
+    # unwrapdata/np.max(unwrapdata)*255
+    cv2.imwrite(destination + '.png', im_unwrap)
+    # cv2.imwrite(folder + 'kdata.png', np.multiply(2*PI,kdata))
+
+
+
+
+def suspect_unwrap_r(low_f_file, high_f_file, destination):
     file1 = low_f_file
     file2 = high_f_file
     print("file1:", file1)
@@ -254,7 +302,7 @@ def makeclouds(scanfolder, count):
 # # makeDDbase(199)
 
 unw('new1', 465)
-nndepth('new1', 465, 199)
+# nndepth('new1', 465, 199)
 # makeclouds('new1', 465)
 
 
