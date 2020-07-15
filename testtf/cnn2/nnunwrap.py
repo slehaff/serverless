@@ -276,8 +276,8 @@ def nndepth(folder, count, basecount):
 
 def unw(folder, count):
     for i in range(count):
-        flow = folder +'/4/wrap/' + str(i) +'.npy'
-        fhigh = folder +'/1/wrap/' + str(i) + '.npy'
+        flow = folder +'/4/nnwrap/' + str(i) +'.npy'
+        fhigh = folder +'/1/nnwrap/' + str(i) + '.npy'
         destination = folder +'/nnunwrap/' + str(i)
         unwrap_r(flow, fhigh, destination)
 
@@ -301,8 +301,8 @@ def makeclouds(scanfolder, count):
 # # unw('scanplanes', 199)
 # # makeDDbase(199)
 
-unw('new1', 465)
-# nndepth('new1', 465, 199)
+# unw('new1', 465)
+nndepth('new1', 465, 199)
 # makeclouds('new1', 465)
 
 
