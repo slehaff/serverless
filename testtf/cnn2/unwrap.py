@@ -67,10 +67,10 @@ def unwrap(request):
 
 
 
-for i in range(100):
-    flow = 'new1-99/4/nnwrap/' + str(i) +'.npy'
-    fhigh = 'new1-99/1/nnwrap/' + str(i) + '.npy'
-    destination = 'new1-99/nnunwrap/' + str(i)
+for i in range(465):
+    flow = 'new1/4/nnwrap/' + str(i) +'.npy'
+    fhigh = 'new1/1/nnwrap/' + str(i) + '.npy'
+    destination = 'new1/nnunwrap/' + str(i)
     unwrap_r(flow, fhigh, destination)
 #     rgb = 'new/colswt/' + str(i) + '.png'
 #     depth = 'new/nnunwrap/'+ str(i) + '.png'
