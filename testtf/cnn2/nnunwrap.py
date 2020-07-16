@@ -352,7 +352,7 @@ def batch(fname,count):
     makeclouds(fname, count)
 
 
-nnbatch('new1', 465)
+batch('new1', 465)
 
 
 
