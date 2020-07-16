@@ -283,7 +283,7 @@ def nndepth(folder, count, basecount):
 def nnunw(folder, count):
     for i in range(count):
         flow = folder +'/4/nnwrap/' + str(i) +'.npy'
-        fhigh = folder +'/1/wrap/' + str(i) + '.npy'
+        fhigh = folder +'/1/nnwrap/' + str(i) + '.npy'
         destination = folder +'/nnunwrap/' + str(i)
         unwrap_r(flow, fhigh, destination)
 
@@ -352,7 +352,7 @@ def batch(fname,count):
     makeclouds(fname, count)
 
 
-nnbatch('new1', 5)
+nnbatch('new1', 465)
 
 
 

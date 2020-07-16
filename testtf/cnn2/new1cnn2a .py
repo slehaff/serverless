@@ -18,7 +18,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 100
+number_of_epochs = 20
 IMAGECOUNT = 465
 
 
@@ -359,6 +359,6 @@ for i in range(0, 465, 1):
 
 save1nnwrap()
 save1wrap()
-model.save('models/cnn2a-bmodel-shd-1npy-465-40.h5')
+# model.save('models/cnn2a-bmodel-shd-1npy-465-40.h5')
 cv2.imwrite('validate/'+'cnn2a-shd-1npy-465-100-0.png',
             (1.0*combotot).astype(np.uint8))

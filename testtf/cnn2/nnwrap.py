@@ -206,10 +206,10 @@ def testswatarctan(folder):
 # cv2.imwrite(folder + 'npy0denom.png',
 #             (greynom).astype(np.uint8))
 
-# save1nnwrap()
-# save4nnwrap()
-save1wrap()
-save4wrap()
+save1nnwrap()
+save4nnwrap()
+# save1wrap()
+# save4wrap()
 
 def infer():
     folder = '/home/samir/serverless/infer/scan_im_folder/'
