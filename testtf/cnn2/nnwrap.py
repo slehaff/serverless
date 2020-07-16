@@ -22,7 +22,7 @@ def nn_wrap(nom, denom):
  
     for i in range(rheight):
         for j in range(rwidth):
-            wrap[i, j] = np.arctan2(1.7320508 *nom[i, j], denom[i, j])
+            wrap[i, j] = np.arctan2(nom[i, j], denom[i, j])
             if wrap[i, j] < 0:
                 if nom[i, j] < 0:
                     wrap[i, j] += 2*np.pi
@@ -30,8 +30,8 @@ def nn_wrap(nom, denom):
                     wrap[i, j] += 1 * np.pi
             im_wrap[i, j] = 128/np.pi * wrap[i, j]
 
-    wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
-    im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
+    # wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
+    # im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
     return(im_wrap)
 
 
@@ -47,7 +47,7 @@ def nn2_wrap(nom, denom):
  
     for i in range(rheight):
         for j in range(rwidth):
-            wrap[i, j] = np.arctan2(1.7320508 *greynom[i, j], greydenom[i, j])
+            wrap[i, j] = np.arctan2(greynom[i, j], greydenom[i, j])
             if wrap[i, j] < 0:
                 if nom[i, j] < 0:
                     wrap[i, j] += 2*np.pi
@@ -55,8 +55,8 @@ def nn2_wrap(nom, denom):
                     wrap[i, j] += 1 * np.pi
             im_wrap[i, j] = 128/np.pi * wrap[i, j]
 
-    wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
-    im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
+    # wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
+    # im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
     return(im_wrap)
 
 def save4swat(i, nom, denom):
@@ -94,7 +94,7 @@ def nnfull_wrap(nom, denom):
     greydenom = np.load(denom)
     for i in range(fullheight):
         for j in range(fullwidth):
-            wrap[i, j] = np.arctan2(1.7320508 *greynom[i, j], greydenom[i, j])
+            wrap[i, j] = np.arctan2(greynom[i, j], greydenom[i, j])
             if wrap[i, j] < 0:
                 if greynom[i, j] < 0:
                     wrap[i, j] += 2*np.pi
@@ -102,8 +102,8 @@ def nnfull_wrap(nom, denom):
                     wrap[i, j] += 1 * np.pi
             im_wrap[i, j] = 128/np.pi * wrap[i, j]
 
-    wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
-    im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
+    # wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
+    # im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
     return(wrap, im_wrap)
 
 def nnswat_wrap(nom, denom):
@@ -113,7 +113,7 @@ def nnswat_wrap(nom, denom):
     greydenom = np.load(denom)
     for i in range(rheight):
         for j in range(rwidth):
-            wrap[i, j] = np.arctan2(1.7320508 *greynom[i, j], greydenom[i, j])
+            wrap[i, j] = np.arctan2(greynom[i, j], greydenom[i, j])
             if wrap[i, j] < 0:
                 if greynom[i, j] < 0:
                     wrap[i, j] += 2*np.pi
@@ -121,12 +121,13 @@ def nnswat_wrap(nom, denom):
                     wrap[i, j] += 1 * np.pi
             im_wrap[i, j] = 128/np.pi * wrap[i, j]
 
-    wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
-    im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
+    # wrap = cv2.GaussianBlur(wrap, (3, 3), 0)
+    # im_wrap = cv2.GaussianBlur(im_wrap, (3, 3), 0)
     return(wrap, im_wrap)
 
 def save1nnwrap():
     for i in range(465):
+        print('wrap1:', str(i))
         nnnom = '/home/samir/serverless/new1/1/' +'nnnom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new1/1/' +'nndenom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
@@ -138,6 +139,7 @@ def save1nnwrap():
         
 def save4nnwrap():
     for i in range(465):
+        print('wrap4:', str(i))
         nnnom = '/home/samir/serverless/new1/4/' +'nnnom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new1/4/' +'nndenom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
@@ -149,23 +151,25 @@ def save4nnwrap():
 
 def save1wrap():
     for i in range(465):
-        nnnom = '/home/samir/serverless/new1/1/' +'nom/' + str(i) +'.npy'
-        nndenom = '/home/samir/serverless/new1/1/' +'denom/' + str(i) +'.npy'
-        nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
+        print('wrap1:', str(i))
+        nom = '/home/samir/serverless/new1/1/' +'nom/' + str(i) +'.npy'
+        denom = '/home/samir/serverless/new1/1/' +'denom/' + str(i) +'.npy'
+        npywrap, imwrap = nnswat_wrap(nom, denom)
         pngfile = '/home/samir/serverless/new1/1/' + 'wrap/' + str(i) + '.png'
-        cv2.imwrite(pngfile, nnimwrap)
+        cv2.imwrite(pngfile, imwrap)
         npyfile = '/home/samir/serverless/new1/1/' + 'wrap/' + str(i) + '.npy'
-        np.save(npyfile, nnnpywrap, allow_pickle=False)
+        np.save(npyfile, npywrap, allow_pickle=False)
 
 def save4wrap():
     for i in range(465):
-        nnnom = '/home/samir/serverless/' +'new1/4/nom/' + str(i) +'.npy'
-        nndenom = '/home/samir/serverless/' +'new1/4/denom/' + str(i) +'.npy'
-        nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
+        print('wrap4:', str(i))
+        nom = '/home/samir/serverless/' +'new1/4/nom/' + str(i) +'.npy'
+        denom = '/home/samir/serverless/' +'new1/4/denom/' + str(i) +'.npy'
+        npywrap, imwrap = nnswat_wrap(nom, denom)
         pngfile = '/home/samir/serverless/new1/4/' + 'wrap/' + str(i) + '.png'
-        cv2.imwrite(pngfile, nnimwrap)
+        cv2.imwrite(pngfile, imwrap)
         npyfile = '/home/samir/serverless/new1/4/' + 'wrap/' + str(i) + '.npy'
-        np.save(npyfile, nnnpywrap, allow_pickle=False)
+        np.save(npyfile, npywrap, allow_pickle=False)
 
 
 def testfullarctan(folder):
@@ -202,10 +206,10 @@ def testswatarctan(folder):
 # cv2.imwrite(folder + 'npy0denom.png',
 #             (greynom).astype(np.uint8))
 
-save1nnwrap()
-save4nnwrap()
-# save1wrap()
-# save4wrap()
+# save1nnwrap()
+# save4nnwrap()
+save1wrap()
+save4wrap()
 
 def infer():
     folder = '/home/samir/serverless/infer/scan_im_folder/'

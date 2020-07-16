@@ -154,8 +154,37 @@ def makeDDbase(count):
     np.save(wr_save, phibase, allow_pickle=False)
 
 
-
 def makeDepth(iteration, infolder, basecount):
+    basefile = '/home/samir/Desktop/blender/pycode/scanplanes/DDbase.npy'
+    DBase = np.load(basefile)
+    unwrap = np.load(infolder+'.npy' )
+    # print('DBase:', np.amax(DBase), np.amin(DBase))
+    # print('unwrap:', np.amax(unwrap), np.amin(unwrap))
+    depth = np.zeros((rheight, rwidth), dtype=np.float64)
+    for i in range(rwidth):
+        # print('i:', i)
+        for j in range(rheight):
+            s=0
+            for s in range(basecount-1):
+                if (abs(unwrap[i,j]-DBase[i,j,s])<.15):
+                    break
+                else:
+                    s+=1
+
+            # print(i,j,unwrap[i,j],DBase[i,j,s])
+            depth[i,j]=s
+            # print('found:',i,j, unwrap[i,j], DBase[i,j,s],s)
+    
+    # print('depth:', np.amax(depth), np.amin(depth))
+    # print(depth)
+    im_depth = depth# np.max(unwrapdata)*255)
+    destination= 'new1/depth/' #'home/serverless/new1/nndepth/'
+    if not cv2.imwrite( destination+ str(iteration)+'.png', im_depth):
+        print('no image')
+    print( destination+  str(iteration)+'.png')
+
+
+def nnmakeDepth(iteration, infolder, basecount):
     basefile = '/home/samir/Desktop/blender/pycode/scanplanes/DDbase.npy'
     DBase = np.load(basefile)
     unwrap = np.load(infolder+'.npy' )
@@ -249,9 +278,21 @@ def nndepth(folder, count, basecount):
     for i in range(count):
         print('progress:', str(i))
         infolder = folder +'/nnunwrap/' + str(i)
-        makeDepth(i, infolder, basecount)
+        nnmakeDepth(i, infolder, basecount)
 
+def nnunw(folder, count):
+    for i in range(count):
+        flow = folder +'/4/nnwrap/' + str(i) +'.npy'
+        fhigh = folder +'/1/wrap/' + str(i) + '.npy'
+        destination = folder +'/nnunwrap/' + str(i)
+        unwrap_r(flow, fhigh, destination)
 
+def nnmakeclouds(scanfolder, count):
+    for i in range(count):
+        print('start')
+        folder = scanfolder
+        generate_pointcloud(folder + '/4/fringeA/'+ str(i)+'.png', folder + '/nndepth/'+ str(i)+'.png', folder +'/nnply/'+ str(i)+'.ply')
+   
 # def unw(scanfolder, count):
 #     for i in range(count):
 #         print('start')
@@ -278,34 +319,40 @@ def unw(folder, count):
     for i in range(count):
         flow = folder +'/4/wrap/' + str(i) +'.npy'
         fhigh = folder +'/1/wrap/' + str(i) + '.npy'
-        destination = folder +'/nnunwrap/' + str(i)
+        destination = folder +'/unwrap/' + str(i)
         unwrap_r(flow, fhigh, destination)
 
-
+def depth(folder, count, basecount):
+    for i in range(count):
+        print('progress:', str(i))
+        infolder = folder +'/unwrap/' + str(i)
+        makeDepth(i, infolder, basecount)
 
 def makeclouds(scanfolder, count):
     for i in range(count):
         print('start')
         folder = scanfolder
-            # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png' , folder + 'im_wrap1.png', folder +'pointcl-high.ply')
-            # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png' , folder + 'im_wrap2.png', folder +'pointcl-low.ply')
-            # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png', folder + 'unwrap.png', folder +'pointcl-unw.ply')
-        generate_pointcloud(folder + '/4/fringeA/'+ str(i)+'.png', folder + '/nndepth/'+ str(i)+'.png', folder +'/nnply/'+ str(i)+'.ply')
-            # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png', folder + 'kdata.png', folder +'pointcl-k.ply')
-            # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png', folder + 'unwrap2.png', folder +'pointcl-2.ply')
-   
+        generate_pointcloud(folder + '/4/fringeA/'+ str(i)+'.png', folder + '/depth/'+ str(i)+'.png', folder +'/ply/'+ str(i)+'.ply')
+  
 
 # print('scanumwrap')
 # # unw('scanplanes', 199)
 # # makeDDbase(199)
 
-# unw('new1', 465)
-# nndepth('new1', 465, 199)
-makeclouds('new1', 465)
+
+def nnbatch(fname,count):
+    nnunw(fname, count)
+    nndepth(fname, count, 199)
+    nnmakeclouds(fname, count)
 
 
+def batch(fname,count):
+    unw(fname, count)
+    depth(fname, count, 199)
+    makeclouds(fname, count)
 
 
+nnbatch('new1', 5)
 
 
 
