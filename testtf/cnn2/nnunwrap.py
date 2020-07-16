@@ -185,7 +185,7 @@ def makeDepth(iteration, infolder, basecount):
     print( destination+  str(iteration)+'.png')
     
 
-def generate_pointcloud(rgb_file, mask_file, depth_file, ply_file):
+def generate_pointcloud(rgb_file, depth_file, ply_file):
     """
     Generate a colored point cloud in PLY format from a color and a depth image.
     
@@ -276,8 +276,8 @@ def nndepth(folder, count, basecount):
 
 def unw(folder, count):
     for i in range(count):
-        flow = folder +'/4/nnwrap/' + str(i) +'.npy'
-        fhigh = folder +'/1/nnwrap/' + str(i) + '.npy'
+        flow = folder +'/4/wrap/' + str(i) +'.npy'
+        fhigh = folder +'/1/wrap/' + str(i) + '.npy'
         destination = folder +'/nnunwrap/' + str(i)
         unwrap_r(flow, fhigh, destination)
 
@@ -286,13 +286,11 @@ def unw(folder, count):
 def makeclouds(scanfolder, count):
     for i in range(count):
         print('start')
-        folder = '/home/samir/Desktop/blender/pycode/'+scanfolder+'/render'+ str(i)+'/'
-        print(folder)
-        if path.exists(folder):
+        folder = scanfolder
             # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png' , folder + 'im_wrap1.png', folder +'pointcl-high.ply')
-            generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png' , folder + 'im_wrap2.png', folder +'pointcl-low.ply')
-            generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png', folder + 'unwrap.png', folder +'pointcl-unw.ply')
-            generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png', folder + 'depth.png', folder +'pointcl-depth.ply')
+            # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png' , folder + 'im_wrap2.png', folder +'pointcl-low.ply')
+            # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png', folder + 'unwrap.png', folder +'pointcl-unw.ply')
+        generate_pointcloud(folder + '/4/fringeA/'+ str(i)+'.png', folder + '/nndepth/'+ str(i)+'.png', folder +'/nnply/'+ str(i)+'.ply')
             # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png', folder + 'kdata.png', folder +'pointcl-k.ply')
             # generate_pointcloud(folder + 'blendertexture.png', folder + '5mask.png', folder + 'unwrap2.png', folder +'pointcl-2.ply')
    
@@ -302,8 +300,8 @@ def makeclouds(scanfolder, count):
 # # makeDDbase(199)
 
 # unw('new1', 465)
-nndepth('new1', 465, 199)
-# makeclouds('new1', 465)
+# nndepth('new1', 465, 199)
+makeclouds('new1', 465)
 
 
 
