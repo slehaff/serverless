@@ -91,21 +91,21 @@ def DB_predict(i, x1, x2, y1, y2):
 # get_my_file('inp/' + str(1)+'.png')
 myfile = 'new1/1/fringeA/' + str(1)+'.png'
 
-img = cv2.imread(myfile).astype(np.float32)
-img = normalize_image255(img)
-inp_img = make_grayscale(img)
+image = cv2.imread(myfile).astype(np.float32)
+image = normalize_image255(image)
+inp_img = make_grayscale(image)
 combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
 for i in range(0, IMAGECOUNT, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
     myfile = 'new1/1/fringeA/' + str(i)+'.png'
-    img = cv2.imread(myfile).astype(np.float32)
-    inp_1 = normalize_image255(img)
+    image = cv2.imread(myfile).astype(np.float32)
+    inp_1 = normalize_image255(image)
     inp_1 = make_grayscale(inp_1)
 
     myfile = 'new1/1/gray/' + str(i)+'.png'
-    img = cv2.imread(myfile).astype(np.float32)
-    inp_2 = normalize_image255(img)
+    image = cv2.imread(myfile).astype(np.float32)
+    inp_2 = normalize_image255(image)
     inp_2 = make_grayscale(inp_2)
 
     myfile = 'new1/1/nom/' + str(i)+'.npy'
