@@ -10,6 +10,7 @@ rwidth = 170
 rheight = 170
 fullwidth = 640 
 fullheight = 480
+IMAGECOUNT = 100
 
 def sqdist(v1, v2):
     d = v1-v2
@@ -126,7 +127,7 @@ def nnswat_wrap(nom, denom):
     return(wrap, im_wrap)
 
 def save1nnwrap():
-    for i in range(465):
+    for i in range(IMAGECOUNT):
         print('wrap1:', str(i))
         nnnom = '/home/samir/serverless/new1/1/' +'nnnom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new1/1/' +'nndenom/' + str(i) +'.npy'
@@ -138,7 +139,7 @@ def save1nnwrap():
 
         
 def save4nnwrap():
-    for i in range(465):
+    for i in range(IMAGECOUNT):
         print('wrap4:', str(i))
         nnnom = '/home/samir/serverless/new1/4/' +'nnnom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new1/4/' +'nndenom/' + str(i) +'.npy'
@@ -150,7 +151,7 @@ def save4nnwrap():
 
 
 def save1wrap():
-    for i in range(465):
+    for i in range(IMAGECOUNT):
         print('wrap1:', str(i))
         nom = '/home/samir/serverless/new1/1/' +'nom/' + str(i) +'.npy'
         denom = '/home/samir/serverless/new1/1/' +'denom/' + str(i) +'.npy'
@@ -161,7 +162,7 @@ def save1wrap():
         np.save(npyfile, npywrap, allow_pickle=False)
 
 def save4wrap():
-    for i in range(465):
+    for i in range(IMAGECOUNT):
         print('wrap4:', str(i))
         nom = '/home/samir/serverless/' +'new1/4/nom/' + str(i) +'.npy'
         denom = '/home/samir/serverless/' +'new1/4/denom/' + str(i) +'.npy'
@@ -206,8 +207,8 @@ def testswatarctan(folder):
 # cv2.imwrite(folder + 'npy0denom.png',
 #             (greynom).astype(np.uint8))
 
-save1nnwrap()
-save4nnwrap()
+# save1nnwrap()
+# save4nnwrap()
 # save1wrap()
 # save4wrap()
 

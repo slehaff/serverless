@@ -15,6 +15,7 @@ low_freq = 1
 rwidth = 170
 rheight = 170
 
+IMAGECOUNT = 449
 
 focalLength = 938.0
 centerX = 319.5
@@ -352,7 +353,7 @@ def batch(fname,count):
     makeclouds(fname, count)
 
 
-batch('new1', 465)
+nnbatch('new1', 30)
 
 
 

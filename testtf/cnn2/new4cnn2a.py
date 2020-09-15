@@ -18,8 +18,8 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 400
-IMAGECOUNT = 465
+number_of_epochs = 100
+IMAGECOUNT = 449
 
 
 def make_grayscale(img):
@@ -234,7 +234,7 @@ plot_model(cnn2_model, show_shapes=True, to_file='models/cnn2_model.png')
 
 
 def load_model():
-    model = keras.models.load_model('models/cnn2a-bmodel-shd-4npy-465-400.h5')
+    model = keras.models.load_model('models/cnn2a-bmodel-shd-4npy-465-800.h5')
     return(model)
 
 
@@ -326,7 +326,7 @@ img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
 combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
-for i in range(0, 465, 1):
+for i in range(0, IMAGECOUNT, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
     myfile = 'new1/4/fringeA/' + str(i)+'.png'
@@ -359,6 +359,6 @@ for i in range(0, 465, 1):
 
 save4nnwrap()
 save4wrap()
-model.save('models/cnn2a-bmodel-shd-4npy-465-800.h5')
+model.save('models/cnn2a-bmodel-shd-4npy-465-449-900.h5')
 cv2.imwrite('validate/'+'cnn2a-shd-4npy-465-400.png',
             (1.0*combotot).astype(np.uint8))

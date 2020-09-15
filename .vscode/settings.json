@@ -1,5 +1,6 @@
 {
     "python.linting.pylintEnabled": true,
     "git.ignoreLimitWarning": true,
-    "python.pythonPath": "/home/samir/py3envs/tftest_env/bin/python"
+    "python.pythonPath": "/home/samir/py3envs/tftest_env/bin/python",
+    "python.linting.enabled": true
 }

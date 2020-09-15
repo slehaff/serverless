@@ -18,8 +18,8 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 20
-IMAGECOUNT = 465
+number_of_epochs = 100
+IMAGECOUNT = 449
 
 
 def make_grayscale(img):
@@ -327,7 +327,7 @@ img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
 combotot = combImages(inp_img, inp_img, inp_img, inp_img, inp_img, inp_img)
-for i in range(0, 465, 1):
+for i in range(0, IMAGECOUNT, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
     myfile = 'new1/1/fringeA/' + str(i)+'.png'
@@ -359,6 +359,6 @@ for i in range(0, 465, 1):
 
 save1nnwrap()
 save1wrap()
-# model.save('models/cnn2a-bmodel-shd-1npy-465-40.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-1npy-465-100-0.png',
+# model.save('models/cnn2a-bmodel-1npy-465-100.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-1npy-449-100-0.png',
             (1.0*combotot).astype(np.uint8))
