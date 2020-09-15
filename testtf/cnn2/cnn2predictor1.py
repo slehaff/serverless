@@ -22,6 +22,11 @@ from nnwrap import *
 IMAGECOUNT = 100
 
 
+# input_height = 170
+# input_width = 170
+
+
+
 def make_grayscale(img):
     # Transform color image to grayscale
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -39,12 +44,6 @@ def normalize_image(img):
     img = img - np.min(img)
     img = img/np.max(img)
     return img
-
-
-
-input_height = 170
-input_width = 170
-
 
 
 
