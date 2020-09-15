@@ -41,62 +41,10 @@ def normalize_image(img):
     return img
 
 
-def to_array(folder_path, array, file_count):
-    for i in range(0, file_count, 1):
-        myfile = folder_path + str(i)+'.png'
-        img = cv2.imread(myfile).astype(np.float32)
-        img = normalize_image255(img)
-        inp_img = make_grayscale(img)
-        array.append(inp_img)
-        print('i=', i)
-    return
-   
-
-
-def to_npy_array(folder_path, array, file_count):
-    for i in range(0, file_count, 1):
-        myfile = folder_path + str(i)+'.npy'
-        img = np.load(myfile)
-        img = normalize_image255(img)
-        array.append(img)
-        print('npyarray shape:', np.shape(array))
-    return
-
-
-# Load and pre-process the training data
-fringe_images = []
-background_images = []
-nom_images = []
-denom_images = []
-
-print('Reading fringe images')
-
-to_array('new1/1/fringeA/', fringe_images, IMAGECOUNT)
-to_array('new1/1/gray/', background_images, IMAGECOUNT)
-to_npy_array('new1/1/nom/', nom_images, IMAGECOUNT)
-to_npy_array('new1/1/denom/', denom_images, IMAGECOUNT)
-
 
 input_height = 170
 input_width = 170
 
-
-# Expand the image dimension to conform with the shape required by keras and tensorflow, inputshape=(..., h, w, nchannels).
-fringe_images = np.expand_dims(fringe_images, -1)
-background_images = np.expand_dims(background_images, -1)
-# nom_images = np.expand_dims(nom_images, -1)
-# denom_images = np.expand_dims(denom_images, -1)
-print('fringeshape:', np.shape(fringe_images ))
-print('backgroundshape:', np.shape(background_images) )
-print('nomshape:', np.shape(nom_images ))
-print('denomshape:', np.shape(denom_images) )
-
-print("input shape: {}".format(fringe_images.shape))
-# print("output shape: {}".format(nom_images.shape))
-print(len(fringe_images))
-
-fringe_image_A = Input(shape=(input_height, input_width, 1))
-background_image_B = Input(shape=(input_height, input_width, 1))
 
 
 
@@ -187,6 +135,61 @@ cv2.imwrite('predictions/'+'cnn2a-test1-20.png',
 
 
 ##########################################################################################################################
+
+# def to_array(folder_path, array, file_count):
+#     for i in range(0, file_count, 1):
+#         myfile = folder_path + str(i)+'.png'
+#         img = cv2.imread(myfile).astype(np.float32)
+#         img = normalize_image255(img)
+#         inp_img = make_grayscale(img)
+#         array.append(inp_img)
+#         print('i=', i)
+#     return
+   
+
+
+# def to_npy_array(folder_path, array, file_count):
+#     for i in range(0, file_count, 1):
+#         myfile = folder_path + str(i)+'.npy'
+#         img = np.load(myfile)
+#         img = normalize_image255(img)
+#         array.append(img)
+#         print('npyarray shape:', np.shape(array))
+#     return
+
+
+# # Load and pre-process the training data
+# fringe_images = []
+# background_images = []
+# nom_images = []
+# denom_images = []
+
+# print('Reading fringe images')
+
+# to_array('new1/1/fringeA/', fringe_images, IMAGECOUNT)
+# to_array('new1/1/gray/', background_images, IMAGECOUNT)
+# to_npy_array('new1/1/nom/', nom_images, IMAGECOUNT)
+# to_npy_array('new1/1/denom/', denom_images, IMAGECOUNT)
+
+
+# # Expand the image dimension to conform with the shape required by keras and tensorflow, inputshape=(..., h, w, nchannels).
+# fringe_images = np.expand_dims(fringe_images, -1)
+# background_images = np.expand_dims(background_images, -1)
+# # nom_images = np.expand_dims(nom_images, -1)
+# # denom_images = np.expand_dims(denom_images, -1)
+# print('fringeshape:', np.shape(fringe_images ))
+# print('backgroundshape:', np.shape(background_images) )
+# print('nomshape:', np.shape(nom_images ))
+# print('denomshape:', np.shape(denom_images) )
+
+# print("input shape: {}".format(fringe_images.shape))
+# # print("output shape: {}".format(nom_images.shape))
+# print(len(fringe_images))
+
+# fringe_image_A = Input(shape=(input_height, input_width, 1))
+# background_image_B = Input(shape=(input_height, input_width, 1))
+
+
 
 # # ============================= Branch 1 Fringe Image ================================
 

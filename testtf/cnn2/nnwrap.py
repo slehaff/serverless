@@ -128,7 +128,7 @@ def nnswat_wrap(nom, denom):
 
 def save1nnwrap():
     for i in range(IMAGECOUNT):
-        print('wrap1:', str(i))
+        print('nnwrap1:', str(i))
         nnnom = '/home/samir/serverless/new1/1/' +'nnnom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new1/1/' +'nndenom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
@@ -140,7 +140,7 @@ def save1nnwrap():
         
 def save4nnwrap():
     for i in range(IMAGECOUNT):
-        print('wrap4:', str(i))
+        print('nnwrap4:', str(i))
         nnnom = '/home/samir/serverless/new1/4/' +'nnnom/' + str(i) +'.npy'
         nndenom = '/home/samir/serverless/new1/4/' +'nndenom/' + str(i) +'.npy'
         nnnpywrap, nnimwrap = nnswat_wrap(nnnom, nndenom)
