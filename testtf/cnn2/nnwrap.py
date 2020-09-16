@@ -69,6 +69,9 @@ def save1swat(i, nom, denom):
     folder = '/home/samir/serverless/new1/1/'
     np.save(folder+ 'nnnom/' + str(i) + '.npy', nom, allow_pickle=False)
     np.save(folder+ 'nndenom/' + str(i) + '.npy', denom, allow_pickle=False)
+    cv2.imwrite(folder+ 'nnnom/' + str(i) + '.png', 256/np.pi*nom)
+    cv2.imwrite(folder+ 'nndenom/' + str(i) + '.png', 256/np.pi*denom)
+
 
 def loadswat(i):
     folder ='/home/samir/serverless/' 
@@ -220,5 +223,4 @@ def infer():
     cv2.imwrite(folder+ 'denom1.png', 255*denom1)
     cv2.imwrite(folder+ 'nom4.png', 255*nom4)
     cv2.imwrite(folder+ 'denom4.png', 255*denom4)
-
 
