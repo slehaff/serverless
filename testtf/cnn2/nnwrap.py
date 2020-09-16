@@ -17,6 +17,14 @@ def sqdist(v1, v2):
     return 1-d*d
 
 
+def normalize_image(img):
+    # Normalizes the input image to range (0, 1) for visualization
+    img = img - np.min(img)
+    img = img/np.max(img)
+    return img
+
+
+
 def nn_wrap(nom, denom):
     wrap = np.zeros((rheight, rwidth), dtype=np.float)
     im_wrap = np.zeros((rheight, rwidth), dtype=np.float)
@@ -69,6 +77,8 @@ def save1swat(i, nom, denom):
     folder = '/home/samir/serverless/new1/1/'
     np.save(folder+ 'nnnom/' + str(i) + '.npy', nom, allow_pickle=False)
     np.save(folder+ 'nndenom/' + str(i) + '.npy', denom, allow_pickle=False)
+    nom = normalize_image(nom)
+    denom = normalize_image(denom)
     cv2.imwrite(folder+ 'nnnom/' + str(i) + '.png', 256/np.pi*nom)
     cv2.imwrite(folder+ 'nndenom/' + str(i) + '.png', 256/np.pi*denom)
 

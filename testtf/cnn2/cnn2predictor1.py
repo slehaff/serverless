@@ -81,11 +81,11 @@ def DB_predict(i, x1, x2, y1, y2):
     #             (255.0*predicted_img[0]).astype(np.uint8))
     # cv2.imwrite('validate/'+str(i)+'input.png',
     #             (255.0*predicted_img[1]).astype(np.uint8))
-    combo = combImages(255.0*x1, 255.0*x2, 255.0* y1, 255.0 *
+    com = combImages(255.0*x1, 255.0*x2, 255.0* y1, 255.0 *
                        predicted_img[0], 255.0*y2, 255.0*predicted_img[1])
 
     # cv2.imwrite('validate/'+str(i)+'combo.png', (1.0*combo).astype(np.uint8))
-    return(combo)
+    return(com)
 
 
 # get_my_file('inp/' + str(1)+'.png')
