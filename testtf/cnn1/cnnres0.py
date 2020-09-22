@@ -150,7 +150,7 @@ def compile_model(model):
     return(model)
 
 
-number_of_epochs = 100
+number_of_epochs = 200
 loss = []
 val_loss = []
 convweights = []
@@ -242,6 +242,6 @@ for i in range(0, 99, 1):
     out_img = make_grayscale(img)
     combo = DB_predict(i, inp_img, out_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnnres01-300-modelwrap14'+'-100-adam-noBN.h5')
-cv2.imwrite('validate/'+'cnnres01-300-wrap14'+'-100-adam-noBN.png',
+model.save('models/cnnres01-300-modelwrap14'+'-200-adam-noBN.h5')
+cv2.imwrite('validate/'+'cnnres01-300-wrap14'+'-200-adam-noBN.png',
             (1.0*combotot).astype(np.uint8))
