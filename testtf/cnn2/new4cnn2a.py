@@ -18,8 +18,8 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 200
-IMAGECOUNT = 449
+number_of_epochs = 50
+IMAGECOUNT = 100
 
 
 def make_grayscale(img):
@@ -360,5 +360,5 @@ for i in range(0, IMAGECOUNT, 1):
 save4nnwrap()
 save4wrap()
 model.save('models/cnn2a-bmodel-shd-4npy-465-449-200.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-4npy-465-200.png',
+cv2.imwrite('validate/'+'cnn2a-shd-4npy-100-50.png',
             (1.0*combotot).astype(np.uint8))
