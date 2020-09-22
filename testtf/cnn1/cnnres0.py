@@ -72,10 +72,10 @@ def to_npy_array(folder_path, array, file_count):
 input_images = []
 output_images = []
 
-to_array('newfringeA/', input_images, 150)
-print('newfringeA')
-to_array('newgray/', output_images, 150)
-print('newgray')
+to_array('new1/1/wrap/', input_images, 300)
+print('new1/1/wrap')
+to_array('new1/4/wrap/', output_images, 300)
+print('new1/4/wrap')
 
 
 # Expand the image dimension to conform with the shape required by keras and tensorflow, inputshape=(..., h, w, nchannels).
@@ -161,7 +161,7 @@ model = cnn1_model
 
 def load_model():
     model = keras.models.load_model(
-        'models/cnnres0-160-model250-adam-noBN.h5')
+        'models/cnnres01-300-modelwrap1+100-adam-noBN.h5')
     model.summary()
     return(model)
 
@@ -223,25 +223,25 @@ def DB_predict(i, x, y):
 
 
 # get_my_file('inp/' + str(1)+'.png')
-myfile = 'newfringeA/' + str(1)+'.png'
+myfile = 'new1/1/wrap/' + str(1)+'.png'
 img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
 combotot = combImages(inp_img, inp_img, inp_img)
-for i in range(0, 150, 1):
+for i in range(0, 99, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
-    myfile = 'newfringeA/' + str(i)+'.png'
+    myfile = 'new1/1/wrap/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     img = normalize_image255(img)
     inp_img = make_grayscale(img)
     #get_my_file('out/' + str(i)+'.png')
-    myfile = 'newgray/' + str(i)+'.png'
+    myfile = 'new1/4/wrap/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     img = normalize_image255(img)
     out_img = make_grayscale(img)
     combo = DB_predict(i, inp_img, out_img)
     combotot = np.concatenate((combotot, combo), axis=0)
-model.save('models/cnnres01-150-model100+0-adam-noBN.h5')
-cv2.imwrite('validate/'+'cnnres01-150-100+0-adam-noBN.png',
+model.save('models/cnnres01-300-modelwrap14'+'-100-adam-noBN.h5')
+cv2.imwrite('validate/'+'cnnres01-300-wrap14'+'-100-adam-noBN.png',
             (1.0*combotot).astype(np.uint8))

@@ -18,7 +18,7 @@ from keras.utils import plot_model
 
 from nnwrap import *
 
-number_of_epochs = 100
+number_of_epochs = 200
 IMAGECOUNT = 449
 
 
@@ -210,9 +210,9 @@ y_denom = Lambda(lambda x: x[:, :, :, 1])(x)
 
 # ================================= End of Merge ======================================
 
-cnn2_model = Model(inputs=[fringe_image_A, background_image_B], outputs=[
+cnn2_model4 = Model(inputs=[fringe_image_A, background_image_B], outputs=[
                    y_nom, y_denom])
-cnn2_model.summary()
+cnn2_model4.summary()
 
 
 def compile_model(model):
@@ -228,9 +228,9 @@ loss = []
 val_loss = []
 convweights = []
 
-compile_model(cnn2_model)
-# model = cnn2_model
-plot_model(cnn2_model, show_shapes=True, to_file='models/cnn2_model.png')
+compile_model(cnn2_model4)
+model = cnn2_model4
+plot_model(cnn2_model4, show_shapes=True, to_file='models/cnn2_model4.png')
 
 
 def load_model():
@@ -238,7 +238,7 @@ def load_model():
     return(model)
 
 
-model = load_model()
+# model = load_model()
 
 
 def fct_train():
@@ -359,6 +359,6 @@ for i in range(0, IMAGECOUNT, 1):
 
 save4nnwrap()
 save4wrap()
-model.save('models/cnn2a-bmodel-shd-4npy-465-449-900.h5')
-cv2.imwrite('validate/'+'cnn2a-shd-4npy-465-400.png',
+model.save('models/cnn2a-bmodel-shd-4npy-465-449-200.h5')
+cv2.imwrite('validate/'+'cnn2a-shd-4npy-465-200.png',
             (1.0*combotot).astype(np.uint8))

@@ -57,7 +57,7 @@ model = load_model()
 
 
 def combImages(x1, x2, i1, i2, i3, i4):
-    new_img = img4 = np.concatenate((x1, x2, i1, i2, i3, i4), axis=1)
+    new_img = np.concatenate((x1, x2, i1, i2, i3, i4), axis=1)
     return(new_img)
 
 

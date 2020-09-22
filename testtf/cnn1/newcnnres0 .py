@@ -20,6 +20,14 @@ from keras.layers import Dense, Dropout, Activation, Flatten, BatchNormalization
 from keras.layers import Conv2D, MaxPooling2D, Add
 
 
+
+def pngtonpy(file):
+        img = Image.open(file)
+        img = img.convert('1')
+        npyfile = file[:-3] + 'npy'
+        np.save(npyfile, img, allow_pickle= False)
+
+
 def make_grayscale(img):
     # Transform color image to grayscale
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -72,10 +80,10 @@ def to_npy_array(folder_path, array, file_count):
 input_images = []
 output_images = []
 
-to_npy_array('new/1/fringeA/', input_images, 150)
-print('new/1/fringeA')
-to_array('new/1/gray/', output_images, 150)
-print('newgray')
+to_array('new1/1/fringeA/', input_images, 150)
+print('new1/1/fringeA')
+to_array('new1/1/gray/', output_images, 150)
+print('new1gray')
 
 
 # Expand the image dimension to conform with the shape required by keras and tensorflow, inputshape=(..., h, w, nchannels).
@@ -161,12 +169,12 @@ model = cnn1_model
 
 def load_model():
     model = keras.models.load_model(
-        'models/cnnres0-160-model250-adam-noBN.h5')
+            'models/newcnnres01-150-model50+0-adam-noBN.h5')
     model.summary()
     return(model)
 
 
-# model = load_model()
+model = load_model()
 
 checkpointer = ModelCheckpoint(
     filepath="weights/weights.hdf5", verbose=1, save_best_only=True)
@@ -206,7 +214,7 @@ plot()
 
 
 def combImages(i1, i2, i3):
-    new_img = img3 = np.concatenate((i1, i2, i3), axis=1)
+    new_img  = np.concatenate((i1, i2, i3), axis=1)
     return(new_img)
 
 
@@ -221,7 +229,7 @@ def DB_predict(i, x, y):
 
 
 # get_my_file('inp/' + str(1)+'.png')
-myfile = 'new/1/fringeA/' + str(1)+'.png'
+myfile = 'new1/1/fringeA/' + str(1)+'.png'
 img = cv2.imread(myfile).astype(np.float32)
 img = normalize_image255(img)
 inp_img = make_grayscale(img)
@@ -229,17 +237,18 @@ combotot = combImages(inp_img, inp_img, inp_img)
 for i in range(0, 150, 1):
     print(i)
     # get_my_file('inp/' + str(i)+'.png')
-    myfile = 'new/1/fringeA/' + str(i)+'.npy'
-    img = np.load(myfile)
-    inp_img = normalize_image255(img)
+    myfile = 'new1/1/fringeA/' + str(i)+'.png'
+    img = cv2.imread(myfile).astype(np.float32)
+    img = normalize_image255(img)
+    inp_img = make_grayscale(img)
     # inp_img = make_grayscale(img)
     #get_my_file('out/' + str(i)+'.png')
-    myfile = 'new/1/gray/' + str(i)+'.png'
+    myfile = 'new1/1/gray/' + str(i)+'.png'
     img = cv2.imread(myfile).astype(np.float32)
     img = normalize_image255(img)
     out_img = make_grayscale(img)
     combo = DB_predict(i, inp_img, out_img)
     combotot = np.concatenate((combotot, combo), axis=0)
 # model.save('models/newcnnres01-150-model10+0-adam-noBN.h5')
-cv2.imwrite('validate/'+'newcnnres01-150-10+0-adam-noBN.png',
+cv2.imwrite('validate/'+'new10cnnres01-150-50+0-adam-noBN.png',
             (1.0*combotot).astype(np.uint8))
